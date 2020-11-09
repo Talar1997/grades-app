@@ -39,7 +39,7 @@ exports.createOne = Model => async (req, res, next) => {
 
 exports.getOne = Model => async (req, res, next) => {
     try {
-        const doc = await Model.findById(req.params.id).populate(["student", "subject"]);
+        const doc = await Model.findById(req.params.id).populate(["student", "subject", "owner"]);
         if (!doc) return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
 
         successController(res, 200, doc);
@@ -55,7 +55,7 @@ exports.getAll = Model => async (req, res, next) => {
         if (newQuery.page) delete newQuery.page;
         if (newQuery.sort) delete newQuery.sort;
 
-        const features = new APIFeatures(Model.find(newQuery).populate(["student", "subject"]), req.query)
+        const features = new APIFeatures(Model.find(newQuery).populate(["student", "subject", "owner"]), req.query)
             .sort()
             .paginate();
 
