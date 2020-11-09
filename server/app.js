@@ -29,6 +29,9 @@ app.use(express.json({limit: '15kb'}));
 const userRoutes = require('./routes/userRoutes');
 app.use('/api/v1/users', userRoutes);
 
+const subjectRoutes = require('./routes/subjectRoutes');
+app.use('/api/v1/subjects', subjectRoutes);
+
 app.use('*', (req, res, next) => {
     const err = new AppError(404, 'fail', 'Undefined route');
     next(err, req, res, next);
