@@ -1,5 +1,5 @@
 <template>
-  <img alt="Vue logo" src="./../assets/logo.png">
+  <img alt="Vue logo" src="../assets/img/logo.png">
   <HelloWorld msg="Ye, router is workin"/>
 </template>
 

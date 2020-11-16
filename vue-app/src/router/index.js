@@ -9,11 +9,13 @@ const routes = [
         path: "/",
         name: "Home",
         component: Home,
+        meta: {title: 'Grades - Main board'}
     },
     {
         path: "/login",
         name: "Login",
         component: Login,
+        meta: {title: 'Grades - Login'}
     },
 ];
 

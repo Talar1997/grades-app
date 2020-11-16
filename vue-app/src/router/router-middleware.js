@@ -1,8 +1,8 @@
-import {userValidator} from "@/utils/user-validation";
-import {userService} from "@/utils/user-service";
+//import {userValidator} from "@/utils/user-validation";
+//import {userService} from "@/utils/user-service";
 
 export function routerMiddleware(to, from, next) {
-    const publicPages = ['/login'];
+    /*const publicPages = ['/login'];
     const adminPages = ['/admin', '/categories', '/resources', '/departments'];
 
     // not logged in -> login page
@@ -23,7 +23,7 @@ export function routerMiddleware(to, from, next) {
         if (adminRoleRequired && !userValidator.isUserInRole('admin')) {
             return next('/dashboard');
         }
-    }
+    }*/
 
     document.title = to.meta.title;
     next();

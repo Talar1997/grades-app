@@ -1,6 +1,18 @@
 <template>
   <div class="bg-gradient-primary">
     <div class="login-dark" style="height: 100vh;">
+      <div class="p-fluid">
+        <div class="p-field">
+          <label for="firstname">Firstname</label>
+          <InputText id="firstname" type="text" />
+        </div>
+        <div class="p-field">
+          <label for="lastname">Lastname</label>
+          <InputText id="lastname" type="text" />
+        </div>
+      </div>
+      <Password v-model="value" />
+
       <!--<b-form id="form" method="POST" style="background-color: #ffffff;" v-on:submit.prevent="login">
         <h2 class="sr-only">Login Form</h2>
         <div class="illustration">
@@ -38,10 +50,14 @@
 <script>
 import {userService} from '@/utils/user-service.js';
 import {isEmpty} from "@/utils/string-helpers.js";
-import {environmentType, requireRecaptcha} from '../utils/api-url'
+import {environmentType, requireRecaptcha} from '@/utils/api-url'
+import Password from 'primevue/password';
 
 export default {
   name: 'Login',
+  components:{
+    Password
+  },
   data() {
     return {
       loading: false,
