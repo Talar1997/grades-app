@@ -1,24 +1,18 @@
-# vue-app
+# Grades - implementacja w Vue
 
-## Project setup
-```
-npm install
-```
+## Podstrony
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Login
+Logowanie do systemu
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Strona główna
+Tabela (bądź karty) z dostępnymi przedmiotami. Sortowanie - na początku przedmioty należące do zalogowanego użytkownika.
 
-### Lints and fixes files
-```
-npm run lint
-```
+Możliwość utworzenia nowego przedmiotu. Modal - nazwa przedmiotu, data prowadzenia, prowadzący domyślnie zalogowany użytkownik. Użytkownicy dodawani później (po utworzeniu przedmiotu)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Strona przedmiotu
+Możliwość edycji, dodawania strudentów. Zakładka absencji, zakładka z ocenami.
+
+
+### (Opcjonalnie) Panel admina do zarządzania użytkownikami
+jw
