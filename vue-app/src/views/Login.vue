@@ -1,48 +1,52 @@
 <template>
   <div class="bg-gradient-primary">
     <div class="login-dark" style="height: 100vh;">
-      <div class="p-fluid">
-        <div class="p-field">
-          <label for="firstname">Firstname</label>
-          <InputText id="firstname" type="text" />
+
+      <!--      FIXME: któraś z klas: p-grid p-ai-center vertical-container powoduje, ze pojawia sie scroll na stronie-->
+      <div class="p-grid p-ai-center vertical-container full-height">
+        <div class="p-col">
+          <div class="box"></div>
         </div>
-        <div class="p-field">
-          <label for="lastname">Lastname</label>
-          <InputText id="lastname" type="text" />
+        <div class="p-col">
+          <div class="box">
+            <div class="p-fluid">
+              <form method="POST" v-on:submit.prevent="login">
+                <Card class="login-card">
+                  <template #header>
+                    <div class="p-grid p-ai-center vertical-container full-height">
+                      <div class="p-col">
+                        <div class="box"></div>
+                      </div>
+                      <div class="p-col">
+                        <div class="box"><i class="pi pi-user card-header"></i></div>
+                      </div>
+                      <div class="p-col">
+                        <div class="box"></div>
+                      </div>
+                    </div>
+                  </template>
+                  <template #content>
+                    <div class="p-field">
+                      <label for="email">Email address</label>
+                      <InputText id="email" type="text" v-model="input.email"/>
+                    </div>
+                    <div class="p-field">
+                      <label for="password">Password</label>
+                      <Password :feedback="false" id="password" v-model="input.password"/>
+                    </div>
+                  </template>
+                  <template #footer>
+                    <Button icon="pi pi-check" label="Login" id="submitLogin" type="submit"/>
+                  </template>
+                </Card>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="p-col">
+          <div class="box"></div>
         </div>
       </div>
-      <Password v-model="value" />
-
-      <!--<b-form id="form" method="POST" style="background-color: #ffffff;" v-on:submit.prevent="login">
-        <h2 class="sr-only">Login Form</h2>
-        <div class="illustration">
-          <b-icon icon="shield-lock" scale="1.5" style="color: rgb(78,115,223);"></b-icon>
-        </div>
-        <div class="form-group">
-          <b-input id="email" v-model="input.email" class="form-control" name="email"
-                   placeholder="Email" style="color: rgb(0,0,0);"
-                   type="email"/>
-        </div>
-        <div class="form-group">
-          <b-input id="password" v-model="input.password" class="form-control" name="password"
-                   placeholder="Password" style="color: rgb(0,0,0);"
-                   type="password"/>
-        </div>
-        <div class="form-group">
-          <button id="submitLogin"
-                  class="btn btn-primary btn-block"
-                  style="background-color: rgb(78,115,223);"
-                  type="submit"
-          >
-            <span v-if="!loading">Log In</span>
-            <span v-else>
-              <b-spinner label="Logging in..." small>
-              </b-spinner>
-              Logging in...
-            </span>
-          </button>
-        </div>
-      </b-form>-->
     </div>
   </div>
 </template>
@@ -52,11 +56,17 @@ import {userService} from '@/utils/user-service.js';
 import {isEmpty} from "@/utils/string-helpers.js";
 import {environmentType, requireRecaptcha} from '@/utils/api-url'
 import Password from 'primevue/password';
+import InputText from 'primevue/inputtext';
+import Card from 'primevue/card';
+import Button from 'primevue/button';
 
 export default {
   name: 'Login',
-  components:{
-    Password
+  components: {
+    Password,
+    InputText,
+    Card,
+    Button
   },
   data() {
     return {
@@ -70,6 +80,8 @@ export default {
     }
   },
 
+  //FIXME: dostosować do vuex store pattern
+  // https://www.digitalocean.com/community/tutorials/handling-authentication-in-vue-using-vuex
   methods: {
     async login() {
       if (!isEmpty(this.input.email) && !isEmpty(this.input.password)) {
@@ -93,6 +105,9 @@ export default {
       }
     },
   },
+
+  //FIXME: Notyfikacje muszą być zmienione i dostosowane do vuex store pattern
+  // https://www.youtube.com/watch?v=blGp6vslw7s
   notifications: {
     promptEmptyError: {
       title: 'Login Failed',
@@ -127,6 +142,5 @@ export default {
 </script>
 
 <style scoped>
-@import '../assets/fonts/ionicons.min.css';
 @import '../assets/css/login-form-dark.css';
 </style>

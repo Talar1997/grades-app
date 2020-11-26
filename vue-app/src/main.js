@@ -4,6 +4,7 @@ import App from './App.vue'
 import axios from 'axios'
 import router from './router'
 import {routerMiddleware} from "@/router/router-middleware";
+import 'primeflex/primeflex.css';
 
 const store = createStore()
 const app = createApp(App)
