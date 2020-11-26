@@ -13,17 +13,8 @@
               <form method="POST" v-on:submit.prevent="login">
                 <Card class="login-card">
                   <template #header>
-                    <div class="p-grid p-ai-center vertical-container full-height">
-                      <div class="p-col">
-                        <div class="box"></div>
-                      </div>
-                      <div class="p-col">
-                        <div class="box"><i class="pi pi-user card-header"></i></div>
-                      </div>
-                      <div class="p-col">
-                        <div class="box"></div>
-                      </div>
-                    </div>
+<!--                    TODO: powinno być po środku a nie jest-->
+                    <i class="pi pi-user card-header"></i>
                   </template>
                   <template #content>
                     <div class="p-field">
