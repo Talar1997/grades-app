@@ -1,16 +1,16 @@
 import { createWebHistory, createRouter } from "vue-router";
 
 //Import views here
-import Home from "@/views/Home.vue";
+import SubjectDashboard from "@/views/SubjectDashboard.vue";
 import Login from "@/views/Login.vue";
 import DataTest from "@/views/DataTest.vue";
 
 const routes = [
     {
         path: "/",
-        name: "Home",
-        component: Home,
-        meta: {title: 'Grades - Main board'}
+        name: "Dashboard",
+        component: SubjectDashboard,
+        meta: {title: 'Grades - subjects'}
     },
     {
         path: "/login",
@@ -22,7 +22,7 @@ const routes = [
         path: "/test",
         name: "Test",
         component: DataTest,
-        meta: {title: 'Grades - Login'}
+        meta: {title: 'Grades - test'}
     },
 ];
 

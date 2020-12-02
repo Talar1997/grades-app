@@ -18,7 +18,7 @@ export function isUserInRole(role) {
     return userRole === role;
 }
 
-// TODO: replace axios with proper dataFetchApi function
+// TODO: zastąpić axios dataFetchApi
 async function validateTokenOnServer() {
     if (getUser()) {
         let status = await axios
@@ -33,7 +33,7 @@ async function validateTokenOnServer() {
     }
 }
 
-// TODO: date.now - ms, server returns seconds timestamp
+// TODO: date.now = ms, server timestamp = s
 function validateTokenTimestamp() {
     /*let user = getUser();
     let currentTimestamp = Date.now();

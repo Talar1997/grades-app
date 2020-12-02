@@ -23,7 +23,7 @@
                     </div>
                     <div class="p-field">
                       <label for="password">Password</label>
-                      <Password :feedback="false" id="password" v-model="input.password"/>
+                      <Password v-on:feedback="false" id="password" v-model="input.password"/>
                     </div>
                   </template>
                   <template #footer>
