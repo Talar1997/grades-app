@@ -1,8 +1,6 @@
 <template>
   <div class="bg-gradient-primary">
     <div class="login-dark" style="height: 100vh;">
-
-      <!--      FIXME: któraś z klas: p-grid p-ai-center vertical-container powoduje, ze pojawia sie scroll na stronie-->
       <div class="p-grid p-ai-center vertical-container full-height">
         <div class="p-col">
           <div class="box"></div>
@@ -13,8 +11,9 @@
               <form method="POST" v-on:submit.prevent="login">
                 <Card class="login-card">
                   <template #header>
-<!--                    TODO: powinno być po środku a nie jest-->
-                    <i class="pi pi-user card-header"></i>
+                    <div class="card-image-wrapper">
+                      <i class="pi pi-user card-header"></i>
+                    </div>
                   </template>
                   <template #content>
                     <div class="p-field">
@@ -23,7 +22,7 @@
                     </div>
                     <div class="p-field">
                       <label for="password">Password</label>
-                      <Password v-on:feedback="false" id="password" v-model="input.password"/>
+                      <Password v-bind:feedback="false" id="password" v-model="input.password"/>
                     </div>
                   </template>
                   <template #footer>
@@ -39,17 +38,19 @@
         </div>
       </div>
     </div>
+    <Toast></Toast>
   </div>
 </template>
 
 <script>
-import {userService} from '@/utils/user-service.js';
 import {isEmpty} from "@/utils/string-helpers.js";
-import {environmentType, requireRecaptcha} from '@/utils/api-url'
+import {mapActions, mapGetters, mapState} from 'vuex'
 import Password from 'primevue/password';
 import InputText from 'primevue/inputtext';
 import Card from 'primevue/card';
 import Button from 'primevue/button';
+import Toast from 'primevue/toast';
+import {useToast} from "vue-toastification";
 
 export default {
   name: 'Login',
@@ -57,7 +58,8 @@ export default {
     Password,
     InputText,
     Card,
-    Button
+    Button,
+    Toast
   },
   data() {
     return {
@@ -66,72 +68,55 @@ export default {
         email: "",
         password: "",
       },
-      environment: environmentType,
-      requireRecaptcha: requireRecaptcha,
     }
   },
 
-  //FIXME: dostosować do vuex store pattern
-  // https://www.digitalocean.com/community/tutorials/handling-authentication-in-vue-using-vuex
+  setup(){
+    const toast = useToast();
+    return { toast }
+  },
+
+  computed: {
+    ...mapState({
+      user: state => state.user
+    }),
+    ...mapGetters({
+      isLoggedIn: 'user/isLoggedIn',
+      isActive: 'user/isActive',
+      loggedUser: 'user/getUser',
+    }),
+    ...mapActions({
+      pushError: 'notification/pushError',
+    })
+  },
+
   methods: {
     async login() {
-      if (!isEmpty(this.input.email) && !isEmpty(this.input.password)) {
-        let user;
-        try {
-          this.loading = true;
-          user = await userService.login(this.input.email, this.input.password);
-        } catch (error) {
-          console.log(error);
-        }
+      const email = this.input.email;
+      const password = this.input.password;
+      this.loading = true;
 
-        this.loading = false;
-        if (!user) this.loginError();
-        else if (!user.data.user.active) this.userInactive();
+      if (!isEmpty(email) && !isEmpty(password)) {
+        await this.$store.dispatch('user/login', {email, password})
+            .then(() => {
+              this.loading = false;
+            })
+
+        if (this.isLoggedIn && !this.isActive) this.toast.error("Account is inactive")
+
+        if (!this.isLoggedIn) this.toast.error("Email or password is incorrect")
         else {
-          this.loginSuccess();
+          this.toast.success("Login success")
           await this.$router.push('dashboard');
         }
       } else {
-        this.promptEmptyError();
+        this.toast.error("Provide credentials")
       }
     },
   },
-
-  //FIXME: Notyfikacje muszą być zmienione i dostosowane do vuex store pattern
-  // https://www.youtube.com/watch?v=blGp6vslw7s
-  notifications: {
-    promptEmptyError: {
-      title: 'Login Failed',
-      message: 'Please provide data.',
-      type: 'error'
-    },
-    loginError: {
-      title: 'Login Failed',
-      message: 'Email or password is incorrect',
-      type: 'error'
-    },
-    userInactive: {
-      title: 'Login Failed',
-      message: 'Your account is inactive. Please contact with administrator',
-      type: 'error'
-    },
-    loginSuccess: {
-      title: 'Login Success',
-      message: () => {
-        let welcomeArray = [
-          'Have a nice day :)',
-          'Good to see you again :)',
-          'How’s it going?',
-          'Howdy!'
-        ];
-        return welcomeArray[Math.floor(Math.random() * welcomeArray.length)];
-      },
-      type: 'success'
-    }
-  }
 }
 </script>
 
 <style scoped>
-@import '../assets/css/login-form-dark.css';
+@import '../assets/css/login-form.css';
 </style>

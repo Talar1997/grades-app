@@ -8,12 +8,23 @@
 }
 
 .card-header {
-    text-align: center;
     font-size: 9rem;
     color: #50a3a2;
     margin: 0 auto !important;
 }
 
 .login-card {
+    max-width: 450px;
     padding: 35px 15px 25px 15px;
+    margin: 0 auto !important;
+}
+
+.card-image-wrapper{
+    margin: 0 auto !important;
+    width: 9rem;
+}
+
+.p-grid{
+    padding: 0 !important;
+    margin: 0 !important;
 }

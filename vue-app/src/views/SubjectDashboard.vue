@@ -1,10 +1,11 @@
 <template>
-  <img alt="Vue logo" src="../assets/img/logo.png">
+  <div>
+    <button v-on:click="logout">Wyloguj</button>
+  </div>
 </template>
 
 <script>
 
-import {fetchAllStudents} from "@/api/studentsApi";
 
 export default {
   name: 'SubjectDashboard',
@@ -14,14 +15,13 @@ export default {
     }
   },
   methods:{
-    async getStudents() {
-      this.students = await fetchAllStudents()
+    logout(){
+      this.$store.dispatch('user/logout')
+      .then(()=>{
+        this.$router.push('login');
+      })
     }
   },
-  mounted() {
-    this.getStudents();
-    console.log(this.students);
-  }
 }
 </script>
 

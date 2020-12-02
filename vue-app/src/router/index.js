@@ -1,28 +1,55 @@
 import { createWebHistory, createRouter } from "vue-router";
 
-//Import views here
 import SubjectDashboard from "@/views/SubjectDashboard.vue";
+import Subject from "@/views/Subject.vue";
 import Login from "@/views/Login.vue";
 import DataTest from "@/views/DataTest.vue";
 
 const routes = [
     {
-        path: "/",
+        path: "/:catchAll(.*)",
+        name: 'Default path',
+        component: SubjectDashboard,
+        meta: {
+            title: 'Dashboard - Resource Manager',
+            requireAuth: true,
+        }
+    },
+    {
+        path: "/dashboard",
         name: "Dashboard",
         component: SubjectDashboard,
-        meta: {title: 'Grades - subjects'}
+        meta: {
+            title: 'Dashboard - GradesApp',
+            requireAuth: true,
+        }
+    },
+    {
+        path: "/subject/:id",
+        name: "Subject",
+        component: Subject,
+        meta: {
+            title: 'Subject - GradesApp',
+            requireAuth: true,
+        }
     },
     {
         path: "/login",
         name: "Login",
         component: Login,
-        meta: {title: 'Grades - Login'}
+        meta: {
+            title: 'Login - GradesApp',
+            requireAuth: false
+        }
     },
     {
         path: "/test",
         name: "Test",
         component: DataTest,
-        meta: {title: 'Grades - test'}
+        meta: {
+            title: 'Test subpage',
+            requireAuth: false
+        }
     },
 ];
 

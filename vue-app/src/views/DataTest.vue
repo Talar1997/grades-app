@@ -1,26 +1,41 @@
 <template>
-  <img alt="Vue logo" src="../assets/img/logo.png">
+  <ul>
+    <li
+        v-for="subject in subjects"
+        :key="subject._id">
+      {{subject.name}} - {{subject.owner.email}}
+    </li>
+  </ul>
 </template>
 
 <script>
+import {mapState, mapActions, mapGetters} from 'vuex'
 
-import {fetchAllStudents} from "@/api/studentsApi";
 
 export default {
   name: 'DataTest',
   data(){
     return{
-      students: null
+      test: null,
     }
   },
-  methods:{
-    async getStudents() {
-      this.students = await fetchAllStudents()
-    }
+  computed: {
+    ...mapState({
+      subjects: state => state.subjects.all
+    }),
+    ...mapGetters({
+      getAll: 'subjects/getAll',
+    }),
   },
-  mounted() {
-    this.getStudents();
-    console.log(this.students);
+
+  methods: {
+    ...mapActions('subjects', [
+      'getAllSubjects'
+    ]),
+
+  },
+  created () {
+    this.$store.dispatch('subjects/getAllSubjects')
   }
 }
 </script>
