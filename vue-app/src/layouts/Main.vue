@@ -1,13 +1,13 @@
 <template>
-  <div id="wrapper">
-    <div id="page-top"></div>
-    <Sidebar></Sidebar>
-
-    <div id="content-wrapper">
-      <div id="content">
-        <div>
-          <slot></slot>
-        </div>
+  <div class="p-grid p-ai-stretch vertical-container">
+    <div class="p-col-2 no-margin no-padding">
+      <div class="box box-stretched">
+        <Sidebar></Sidebar>
+      </div>
+    </div>
+    <div class="p-col-10">
+      <div class="box box-stretched">
+        <slot></slot>
       </div>
       <AppFooter></AppFooter>
     </div>
@@ -25,3 +25,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .no-margin {
+    margin: 0 !important;
+  }
+  .no-padding{
+    padding: 0 !important;
+  }
+
+
+</style>

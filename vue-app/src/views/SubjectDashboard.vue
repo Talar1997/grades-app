@@ -1,25 +1,32 @@
 <template>
-  <div>
-    <button v-on:click="logout">Wyloguj</button>
-  </div>
+  <main-layout>
+    <div style="background-color: #50a3a2; height: 95vh">
+      test
+    </div>
+  </main-layout>
 </template>
 
 <script>
 
 
+import MainLayout from "@/layouts/Main";
+
 export default {
   name: 'SubjectDashboard',
-  data(){
-    return{
+  components: {
+    MainLayout
+  },
+  data() {
+    return {
       students: null
     }
   },
-  methods:{
-    logout(){
+  methods: {
+    logout() {
       this.$store.dispatch('user/logout')
-      .then(()=>{
-        this.$router.push('login');
-      })
+          .then(() => {
+            this.$router.push('login');
+          })
     }
   },
 }

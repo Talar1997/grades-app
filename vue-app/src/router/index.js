@@ -25,6 +25,24 @@ const routes = [
         }
     },
     {
+        path: "/students",
+        name: "Students",
+        component: SubjectDashboard,
+        meta: {
+            title: 'Students - GradesApp',
+            requireAuth: true,
+        }
+    },
+    {
+        path: "/users",
+        name: "Users",
+        component: SubjectDashboard,
+        meta: {
+            title: 'Users - GradesApp',
+            requireAuth: true,
+        }
+    },
+    {
         path: "/subject/:id",
         name: "Subject",
         component: Subject,
