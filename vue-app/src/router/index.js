@@ -1,32 +1,42 @@
 import { createWebHistory, createRouter } from "vue-router";
 
-import SubjectDashboard from "@/views/SubjectDashboard.vue";
+import Dashboard from "@/views/Dashboard.vue";
+import AllSubjects from "@/views/AllSubjects.vue";
 import Subject from "@/views/Subject.vue";
 import Login from "@/views/Login.vue";
 import DataTest from "@/views/DataTest.vue";
-import Students from "@/views/Students";
+//import Students from "@/views/Students";
 import Users from "@/views/Users";
 
 const routes = [
     {
         path: "/:catchAll(.*)",
         name: 'Default path',
-        component: SubjectDashboard,
+        component: Dashboard,
         meta: {
-            title: 'Dashboard - Resource Manager',
+            title: 'Twoje przedmioty - Resource Manager',
             requireAuth: true,
         }
     },
     {
         path: "/dashboard",
         name: "Dashboard",
-        component: SubjectDashboard,
+        component: Dashboard,
         meta: {
-            title: 'Dashboard - GradesApp',
+            title: 'Twoje przedmioty - GradesApp',
             requireAuth: true,
         }
     },
     {
+        path: "/subjects",
+        name: "Subjects",
+        component: AllSubjects,
+        meta: {
+            title: 'Wszystkie przedmioty - GradesApp',
+            requireAuth: true,
+        }
+    },
+/*    {
         path: "/students",
         name: "Students",
         component: Students,
@@ -34,13 +44,13 @@ const routes = [
             title: 'Students - GradesApp',
             requireAuth: true,
         }
-    },
+    },*/
     {
         path: "/users",
         name: "Users",
         component: Users,
         meta: {
-            title: 'Users - GradesApp',
+            title: 'Użytkownicy - GradesApp',
             requireAuth: true,
         }
     },
@@ -49,7 +59,7 @@ const routes = [
         name: "Subject",
         component: Subject,
         meta: {
-            title: 'Subject - GradesApp',
+            title: 'Przedmiot - GradesApp',
             requireAuth: true,
         }
     },

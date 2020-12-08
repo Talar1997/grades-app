@@ -1,5 +1,6 @@
 <template>
   <main-layout>
+    <h1>Studenci</h1>
     <div>
       {{this.$router.currentRoute.value.fullPath}}
 

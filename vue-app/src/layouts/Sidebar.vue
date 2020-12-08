@@ -4,8 +4,8 @@
       <div class="sidebar-sign">
         <p class="no-margin no-padding">Grades App</p>
       </div>
-      <RouterLinkElement id="dashboard" name="Przedmioty" icon="pi-list"></RouterLinkElement>
-      <RouterLinkElement id="students" name="Studenci" icon="pi-users"></RouterLinkElement>
+      <RouterLinkElement id="dashboard" name="Twoje przedmioty" icon="pi-list"></RouterLinkElement>
+      <RouterLinkElement id="subjects" name="Wszystkie przedmioty" icon="pi-users"></RouterLinkElement>
       <RouterLinkElement id="users" name="Użytkownicy" icon="pi-sitemap"></RouterLinkElement>
       <RouterLinkElement id="test" name="Panel testowy" icon="pi-palette"></RouterLinkElement>
       <RouterLinkElement v-on:click="logout" id="login" name="Wyloguj" icon="pi-arrow-circle-left"></RouterLinkElement>
@@ -39,6 +39,8 @@ export default {
 </script>
 
 <style scoped>
+@import '../assets/css/global.css';
+
 .sidebar-sign{
   height: 50px;
   background-color: #1a513a;

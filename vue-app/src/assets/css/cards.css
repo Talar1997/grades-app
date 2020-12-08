@@ -1,0 +1,33 @@
+.grades-card {
+    min-width: 250px;
+    margin-bottom: 2em;
+}
+
+/*TODO: Powiększyć cienie po najechaniu m*/
+.grades-card:hover{
+
+}
+
+.p-card-title{
+    height: 50px;
+}
+
+.grades-card-add .p-card-content,
+.grades-card-add .p-card-body,
+.grades-card-add .p-card{
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.add-wrapper{
+    height: 350px;
+    width: 100%;
+    background-color: #5ab880;
+    transition: background-color .15s ease;
+
+}
+
+.add-wrapper:hover{
+    background-color: #318c63;
+    transition: background-color .15s ease;
+}

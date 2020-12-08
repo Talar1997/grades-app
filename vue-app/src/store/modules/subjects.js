@@ -6,6 +6,7 @@ const state = () => ({
 
 const getters = {
     getAll: state => state.all,
+    getOwner: (state) => (id) => state.all.filter(el => el.owner._id === id)
 }
 
 const actions = {
@@ -18,7 +19,7 @@ const actions = {
 
 const mutations = {
     setSubjects(state, subjects) {
-        state.all = subjects
+        state.all = subjects.sort((x, y) => Number(x.active) - Number(y.active))
     },
 }
 
