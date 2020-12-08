@@ -1,14 +1,13 @@
 <template>
   <li class="sidebar-ul-li"
       v-on:click="setActiveRouteElement()">
-    <!-- TODO: poprawić wygląd sidebara: znaleźć lepszą czcionke, ustawić ikonki tak żeby nie były za blisko -->
     <router-link v-bind:id="id"
                  v-bind:ref="id"
                  class="nav-link"
                  v-bind:to='getPath()'>
-      <i class="pi" v-bind:class="icon"></i>
-      <span v-if="!name" class="p-text-capitalize">{{ id }}</span>
-      <span v-else class="p-text-capitalize">{{ name }}</span>
+      <i class="router-icon pi" v-bind:class="icon"></i>
+      <span v-if="!name" class="p-text-capitalize router-name">{{ id }}</span>
+      <span v-else class="p-text-capitalize router-name">{{ name }}</span>
     </router-link>
   </li>
 
@@ -53,9 +52,7 @@ export default {
   },
 
   mounted() {
-    setTimeout(() => {
-      this.setActiveRouteElement();
-    }, 150);
+    this.setActiveRouteElement();
   }
 
 }
@@ -67,15 +64,28 @@ export default {
   color: #000;
   padding: 8px 16px;
   text-decoration: none;
+  transition: background-color .15s ease;
 }
 
 .sidebar-ul-li a.active {
-  background-color: #50a3a2;
+  background-color: #318c63;
   color: white;
+  font-weight: bold;
 }
 
 .sidebar-ul-li a:hover:not(.active) {
-  background-color: #555;
+  background-color: #5ab880;
   color: white;
+  transition: background-color .15s ease;
+}
+
+.router-icon{
+  padding: 6px;
+  font-size: 1.3rem;
+}
+
+.router-name{
+  position: relative;
+  bottom: 3px;
 }
 </style>

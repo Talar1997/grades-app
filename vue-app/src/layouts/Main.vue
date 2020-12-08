@@ -1,38 +1,29 @@
 <template>
   <div class="p-grid p-ai-stretch vertical-container">
     <div class="p-col-2 no-margin no-padding">
-      <div class="box box-stretched">
+      <div class="box box-stretched full-height">
         <Sidebar></Sidebar>
       </div>
     </div>
-    <div class="p-col-10">
-      <div class="box box-stretched">
+    <div class="p-col-10 no-padding no-margin">
+      <div class="box box-stretched content-wrapper">
         <slot></slot>
       </div>
-      <AppFooter></AppFooter>
+
     </div>
   </div>
 </template>
 
 <script>
-import AppFooter from './Footer.vue';
-import Sidebar from './Sidebar.vue';
 
+import Sidebar from './Sidebar.vue';
 export default {
   components: {
     Sidebar,
-    AppFooter
   }
 }
 </script>
 
 <style scoped>
-  .no-margin {
-    margin: 0 !important;
-  }
-  .no-padding{
-    padding: 0 !important;
-  }
-
-
+@import '../assets/css/global.css';
 </style>

@@ -53,6 +53,7 @@ export default {
   },
 
   methods: {
+    // Nie jest to wymagane. Jeden z dwóch sposobów wystarczy na pobranie danych.
     ...mapActions('subjects', [
       'getAllSubjects'
     ]),

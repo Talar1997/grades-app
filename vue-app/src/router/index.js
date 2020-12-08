@@ -4,6 +4,8 @@ import SubjectDashboard from "@/views/SubjectDashboard.vue";
 import Subject from "@/views/Subject.vue";
 import Login from "@/views/Login.vue";
 import DataTest from "@/views/DataTest.vue";
+import Students from "@/views/Students";
+import Users from "@/views/Users";
 
 const routes = [
     {
@@ -27,7 +29,7 @@ const routes = [
     {
         path: "/students",
         name: "Students",
-        component: SubjectDashboard,
+        component: Students,
         meta: {
             title: 'Students - GradesApp',
             requireAuth: true,
@@ -36,7 +38,7 @@ const routes = [
     {
         path: "/users",
         name: "Users",
-        component: SubjectDashboard,
+        component: Users,
         meta: {
             title: 'Users - GradesApp',
             requireAuth: true,
