@@ -3,12 +3,15 @@ import store from './store'
 import App from './App.vue'
 import axios from 'axios'
 import router from './router'
-import {routerMiddleware} from "@/router/router-middleware";
-import 'primeflex/primeflex.css';
-import Toast from "vue-toastification";
-import "vue-toastification/dist/index.css";
+import {routerMiddleware} from "@/router/router-middleware"
+import 'primeflex/primeflex.css'
+import Toast from "vue-toastification"
+import "vue-toastification/dist/index.css"
+import mitt from "mitt"
 
 const app = createApp(App)
+const emitter = mitt()
+app.config.globalProperties.emitter = emitter
 
 //https://github.com/Maronato/vue-toastification/tree/next
 const options = {
@@ -25,7 +28,7 @@ const options = {
     icon: true,
     rtl: false
 };
-app.use(Toast, options);
+app.use(Toast, options)
 
 app.use(store)
 app.use(router)
@@ -33,7 +36,7 @@ app.use(router)
 router.beforeEach((to, from, next) =>
     routerMiddleware(to, from, next));
 
-axios.defaults.withCredentials = true;
-axios.defaults.headers.common['Access-Control-Allow-Method'] = "GET, PATCH, POST, DELETE, OPTIONS";
+axios.defaults.withCredentials = true
+axios.defaults.headers.common['Access-Control-Allow-Method'] = "GET, PATCH, POST, DELETE, OPTIONS"
 
 app.mount('#app')

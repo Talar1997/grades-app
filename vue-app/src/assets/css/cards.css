@@ -1,11 +1,7 @@
 .grades-card {
     min-width: 250px;
     margin-bottom: 2em;
-}
-
-/*TODO: Powiększyć cienie po najechaniu m*/
-.grades-card:hover{
-
+    transition: all .15s ease;
 }
 
 .p-card-title{
@@ -20,8 +16,7 @@
 }
 
 .add-wrapper{
-    height: 350px;
-    width: 100%;
+    height: 374px;
     background-color: #5ab880;
     transition: background-color .15s ease;
 
@@ -30,4 +25,15 @@
 .add-wrapper:hover{
     background-color: #318c63;
     transition: background-color .15s ease;
+    cursor: pointer;
+}
+
+.icon-wrapper{
+    text-align: center;
+    padding-top: 120px;
+}
+
+.add-icon{
+    color: white;
+    font-size: 8rem;
 }

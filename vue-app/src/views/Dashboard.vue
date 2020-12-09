@@ -15,15 +15,15 @@
     <div class="p-grid p-ai-stretch vertical-container" v-else>
       <h2 v-if="isEmpty() && !subjectsLoading">Lista przedmiotów jest pusta. Utwórz nowy przedmiot.</h2>
 
-      <div class="p-col-3 p-md-6 p-lg-4 p-sm-12 p-xl-3">
-        <AddSubjectCard></AddSubjectCard>
-      </div>
-
       <div class="p-col-3 p-md-6 p-lg-4 p-sm-12 p-xl-3" v-for="subject in subjects"
            :key="subject._id">
         <div class="box box-stretched">
           <SubjectCard v-bind:subject="subject"></SubjectCard>
         </div>
+      </div>
+
+      <div class="p-col-3 p-md-6 p-lg-4 p-sm-12 p-xl-3">
+        <AddSubjectCard></AddSubjectCard>
       </div>
     </div>
   </main-layout>

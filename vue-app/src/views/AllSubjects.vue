@@ -5,7 +5,7 @@
     </div>
 
     <div class="p-grid" v-if="subjectsLoading">
-      <div class="p-col-3 p-md-6 p-lg-4 p-sm-12 p-xl-3 page-content p-shadow-2"
+      <div class="p-col-3 p-md-6 p-lg-4 p-sm-12 p-xl-3"
            v-for="n in 8"
            :key="n">
         <LoadingCard></LoadingCard>

@@ -1,5 +1,8 @@
 <template>
-  <Card class="grades-card">
+  <Card class="grades-card"
+        v-on:mouseover="isHovering = true"
+        v-on:mouseout="isHovering = false"
+        v-bind:class="{'p-shadow-3': isHovering}">
     <template #header>
     </template>
     <template #title>
@@ -31,6 +34,11 @@ export default {
   components:{
     Card,
     Button
+  },
+  data() {
+    return{
+      isHovering: false,
+    }
   },
   props:{
     subject: null,
