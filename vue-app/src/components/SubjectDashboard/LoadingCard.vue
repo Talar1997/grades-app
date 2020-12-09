@@ -13,7 +13,8 @@
       Loading...
     </template>
     <template #footer>
-      <Button icon="pi pi-arrow-right" class="p-button-rounded p-button-secondary"/>
+      <Button icon="pi pi-arrow-right" class="p-button-text p-button-primary float-right" />
+      <div class="clear-both"></div>
     </template>
   </Card>
 </template>

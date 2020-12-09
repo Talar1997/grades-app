@@ -11,7 +11,8 @@ const subjectSchema = new mongoose.Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        select: true
+        select: true,
+        required: [true, 'Please fill owner field'],
     },
 
     active: {

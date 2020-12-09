@@ -43,7 +43,7 @@ export default {
 
 .sidebar-sign{
   height: 50px;
-  background-color: #1a513a;
+  background-color: #38a476;
   color: white;
   font-weight: bold;
   text-align: center;

@@ -44,3 +44,22 @@ h2{
     background: rgb(250, 250, 250);
 }
 
+
+.p-card-header {
+    width: 100%;
+    height: 150px;
+    background-image: url("../img/notebook.jpg");
+    background-size: cover;
+}
+
+.header-replace {
+    width: 100%;
+    height: 150px;
+    background-color: rgb(240, 240, 240);
+    background-image: none;
+}
+
+.lineThrough {
+    text-decoration: line-through;
+}
+

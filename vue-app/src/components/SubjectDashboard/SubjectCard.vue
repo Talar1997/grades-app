@@ -2,26 +2,28 @@
   <Card class="grades-card"
         v-on:mouseover="isHovering = true"
         v-on:mouseout="isHovering = false"
-        v-bind:class="{'p-shadow-3': isHovering}">
+        v-bind:class="{'p-shadow-3': isHovering}"
+        v-bind:key="subject._id">
     <template #header>
     </template>
     <template #title>
-      <span v-if="subject.active" class="p-tag p-tag-danger">Nieaktywny</span> {{ subject.name }}
+      <span v-if="!subject.active" class="p-tag p-tag-danger">Nieaktywny</span> {{ subject.name }}
     </template>
     <template #subtitle>
       {{ subject.owner.name }}
     </template>
     <template #content>
-      <div v-bind:class="{ lineThrough: subject.active}">
+      <div v-bind:class="{ lineThrough: !subject.active}">
         Pierwsze zajęcia: {{ toClearDate(subject.date) }} <br>
         Występowanie: {{ toClearDayName(subject.date) }}
       </div>
 
     </template>
     <template #footer>
-      <router-link :to="{ name: 'Subject', params: { id: subject._id  }}">
-        <Button icon="pi pi-arrow-right" class="p-button-rounded p-button-secondary"/>
+      <router-link :to="{ name: 'Subject', params: { id: subject._id  }}" class="float-right">
+        <Button icon="pi pi-arrow-right" class="p-button-text p-button-primary" />
       </router-link>
+      <div class="clear-both"></div>
     </template>
   </Card>
 </template>

@@ -4,36 +4,51 @@
     transition: all .15s ease;
 }
 
-.p-card-title{
+.p-card-title {
     height: 50px;
 }
 
 .grades-card-add .p-card-content,
 .grades-card-add .p-card-body,
-.grades-card-add .p-card{
+.grades-card-add .p-card {
     padding: 0 !important;
     margin: 0 !important;
 }
 
-.add-wrapper{
+.add-wrapper {
     height: 374px;
-    background-color: #5ab880;
+    background-color: #41b883;
     transition: background-color .15s ease;
 
 }
 
-.add-wrapper:hover{
-    background-color: #318c63;
+.add-wrapper:hover {
+    background-color: #38a476;
     transition: background-color .15s ease;
     cursor: pointer;
 }
 
-.icon-wrapper{
+.icon-wrapper {
     text-align: center;
-    padding-top: 120px;
+    padding-top: 125px;
 }
 
-.add-icon{
+.add-icon {
     color: white;
     font-size: 8rem;
+    transition: all .35s ease;
+
+}
+
+.float-right {
+    float: right;
+}
+
+.clear-both{
+    clear: both;
+}
+
+.rotate-icon{
+    transition: all .35s ease;
+    transform: rotate(90deg);
 }

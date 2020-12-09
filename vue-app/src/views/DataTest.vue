@@ -54,6 +54,8 @@ export default {
 
   methods: {
     // Nie jest to wymagane. Jeden z dwóch sposobów wystarczy na pobranie danych.
+    // można pobrać dane zamiast  this.$store.dispatch('subjects/createNewSubject', this.subject)
+    // -> this.createNewSubject(this.subject)
     ...mapActions('subjects', [
       'getAllSubjects'
     ]),
@@ -64,7 +66,7 @@ export default {
 
   },
   created () {
-    this.$store.dispatch('subjects/getAllSubjects').then(()=>{
+    this.getAllSubjects().then(()=>{
       this.subjects.forEach(el => console.log(el.name + el.active))
     })
   },

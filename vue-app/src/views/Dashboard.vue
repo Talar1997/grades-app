@@ -13,10 +13,9 @@
     </div>
 
     <div class="p-grid p-ai-stretch vertical-container" v-else>
-      <h2 v-if="isEmpty() && !subjectsLoading">Lista przedmiotów jest pusta. Utwórz nowy przedmiot.</h2>
-
-      <div class="p-col-3 p-md-6 p-lg-4 p-sm-12 p-xl-3" v-for="subject in subjects"
-           :key="subject._id">
+      <div class="p-col-3 p-md-6 p-lg-4 p-sm-12 p-xl-3"
+           v-for="subject in subjects"
+           v-bind:key="subject._id">
         <div class="box box-stretched">
           <SubjectCard v-bind:subject="subject"></SubjectCard>
         </div>
@@ -37,6 +36,7 @@ import {mapGetters} from "vuex";
 import LoadingCard from "@/components/SubjectDashboard/LoadingCard";
 import SubjectCard from "@/components/SubjectDashboard/SubjectCard";
 import AddSubjectCard from "@/components/SubjectDashboard/AddSubjectCard";
+import {subjectsMixin} from "@/mixins/subjectsMixin";
 
 export default {
   name: 'SubjectDashboard',
@@ -53,26 +53,30 @@ export default {
       userId: JSON.parse(localStorage.getItem('user')).data.user._id,
     }
   },
-  methods: {
-    isEmpty() {
-      return this.subjects === null || this.subjects.length === 0;
-    }
-  },
+
+  mixins: [subjectsMixin],
 
   computed: {
     ...mapGetters({
       getOwnedByUser: "subjects/getOwner"
-    })
+    }),
   },
 
   created() {
-    this.$store.dispatch('subjects/getAllSubjects').then(() => {
+    this.getAllSubjects().then(() => {
       this.subjects = this.getOwnedByUser(this.userId);
-      setTimeout(() => {
-        this.subjectsLoading = false;
-      }, 150);
+      this.stopLoadingDocuments(150);
+    });
 
-    })
+    this.unsubscribe = this.$store.subscribe((mutation) => {
+      if (mutation.type === 'subjects/pushSubject') {
+        this.getAllSubjects().then(() => this.subjects = this.getOwnedByUser(this.userId))
+      }
+    });
+  },
+
+  beforeUnmount() {
+    this.unsubscribe();
   },
 
 }
@@ -80,22 +84,4 @@ export default {
 
 <style>
 @import '../assets/css/global.css';
-
-.p-card-header {
-  width: 100%;
-  height: 150px;
-  background-image: url("../assets/img/notebook.jpg");
-  background-size: cover;
-}
-
-.header-replace {
-  width: 100%;
-  height: 150px;
-  background-color: rgb(240, 240, 240);
-  background-image: none;
-}
-
-.lineThrough {
-  text-decoration: line-through;
-}
 </style>

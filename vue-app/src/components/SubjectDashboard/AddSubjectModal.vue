@@ -9,9 +9,26 @@
                  v-bind:class="{'p-invalid': submitted && !subject.name}"/>
       <small class="p-invalid" v-if="submitted && !subject.name">Nazwa przedmiotu jest wymagana</small>
     </div>
+    <div class="p-field">
+      <label for="name">Data zajęć</label>
+      <Calendar id="date"
+                v-model="subject.date"
+                v-bind:inline="true"/>
+      <small class="p-invalid" v-if="submitted && !subject.date">Data jest wymagana</small>
+    </div>
+    <div class="p-field">
+      <label for="name">Godzina zajęć</label>
+      <Calendar id="time"
+                v-model="subject.hours"
+                v-bind:showTime="true"
+                v-bind:timeOnly="true"
+                v-bind:inline="true"/>
+      <small class="p-invalid" v-if="submitted && !subject.hours">Godzina jest wymagana</small>
+    </div>
+
     <template #footer>
-      <Button label="Cancel" icon="pi pi-times" class="p-button-text" @click="hideDialog"/>
-      <Button label="Save" icon="pi pi-check" class="p-button-text" @click="saveSubject"/>
+      <Button label="Anuluj" icon="pi pi-times" class="p-button-text p-button-secondary" @click="hideDialog"/>
+      <Button label="Zapisz" icon="pi pi-check" class="p-button" @click="saveSubject"/>
     </template>
   </Dialog>
 </template>
@@ -20,14 +37,24 @@
 import Button from "primevue/components/button/Button";
 import InputText from "primevue/components/inputtext/InputText";
 import Dialog from "primevue/components/dialog/Dialog";
+import Calendar from "primevue/components/calendar/Calendar";
+import {mapActions} from "vuex";
+import {useToast} from "vue-toastification";
 
 export default {
   name: "AddSubjectModal",
   components: {
     Dialog,
     InputText,
-    Button
+    Button,
+    Calendar
   },
+
+  setup() {
+    const toast = useToast();
+    return {toast}
+  },
+
   data() {
     return {
       subjectDialog: false,
@@ -35,7 +62,12 @@ export default {
       subject: {},
     }
   },
+
   methods: {
+    ...mapActions('subjects', [
+      'createNewSubject'
+    ]),
+
     hideDialog() {
       this.subjectDialog = false;
       this.submitted = false;
@@ -43,11 +75,19 @@ export default {
 
     saveSubject() {
       this.submitted = true;
+      this.subject.owner = JSON.parse(localStorage.getItem('user')).data.user._id;
 
-      //logika tutaj
+      // TODO: logika: zamiana subject.date = subject.date + subject.hours
 
-      //.subjectDialog = false;
-      //this.subject = {};
+      this.createNewSubject(this.subject)
+          .then(() => {
+            this.toast.success("Utworzono nowy przedmiot");
+            this.subjectDialog = false;
+            this.subject = {};
+          })
+          .catch(() => {
+            this.toast.error("Wystąpił błąd podczas tworzenia nowego przedmiotu");
+          });
     }
   },
   mounted() {
