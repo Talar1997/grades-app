@@ -11,18 +11,20 @@
     </div>
     <div class="p-field">
       <label for="name">Data zajęć</label>
-      <Calendar id="date"
+<!--      <Calendar id="date"
                 v-model="subject.date"
-                v-bind:inline="true"/>
+                v-bind:inline="true"/>-->
       <small class="p-invalid" v-if="submitted && !subject.date">Data jest wymagana</small>
     </div>
     <div class="p-field">
       <label for="name">Godzina zajęć</label>
-      <Calendar id="time"
+<!--      <Calendar id="time"
                 v-model="subject.hours"
                 v-bind:showTime="true"
                 v-bind:timeOnly="true"
-                v-bind:inline="true"/>
+                v-bind:inline="true"/>-->
+      <Calendar v-model="subject.hours" />
+
       <small class="p-invalid" v-if="submitted && !subject.hours">Godzina jest wymagana</small>
     </div>
 
@@ -37,7 +39,7 @@
 import Button from "primevue/components/button/Button";
 import InputText from "primevue/components/inputtext/InputText";
 import Dialog from "primevue/components/dialog/Dialog";
-import Calendar from "primevue/components/calendar/Calendar";
+import Calendar from 'primevue/calendar';
 import {mapActions} from "vuex";
 import {useToast} from "vue-toastification";
 
@@ -78,7 +80,6 @@ export default {
       this.subject.owner = JSON.parse(localStorage.getItem('user')).data.user._id;
 
       // TODO: logika: zamiana subject.date = subject.date + subject.hours
-
       this.createNewSubject(this.subject)
           .then(() => {
             this.toast.success("Utworzono nowy przedmiot");

@@ -9,9 +9,14 @@ import Toast from "vue-toastification"
 import "vue-toastification/dist/index.css"
 import mitt from "mitt"
 
+
 const app = createApp(App)
 const emitter = mitt()
 app.config.globalProperties.emitter = emitter
+
+// FIXME: Nie działa, a wg. dokumentacji powinno
+//app.use(ToastService);
+//import ToastService from 'primevue/toastservice';
 
 //https://github.com/Maronato/vue-toastification/tree/next
 const options = {

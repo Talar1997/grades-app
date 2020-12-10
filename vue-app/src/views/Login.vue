@@ -44,7 +44,7 @@
 
 <script>
 import {isEmpty} from "@/utils/string-helpers.js";
-import {mapActions, mapGetters, mapState} from 'vuex'
+import {mapGetters, mapState} from 'vuex'
 import Password from 'primevue/password';
 import InputText from 'primevue/inputtext';
 import Card from 'primevue/card';
@@ -71,9 +71,9 @@ export default {
     }
   },
 
-  setup(){
+  setup() {
     const toast = useToast();
-    return { toast }
+    return {toast}
   },
 
   computed: {
@@ -85,12 +85,14 @@ export default {
       isActive: 'user/isActive',
       loggedUser: 'user/getUser',
     }),
-    ...mapActions({
-      pushError: 'notification/pushError',
-    })
   },
 
   methods: {
+    //FIXME: ...mapActions nie działa, await this.login(); - powinno działać a też nie działa
+    /*...mapActions('user', [
+      'login'
+    ]),*/
+
     async login() {
       const email = this.input.email;
       const password = this.input.password;
@@ -98,20 +100,16 @@ export default {
 
       if (!isEmpty(email) && !isEmpty(password)) {
         await this.$store.dispatch('user/login', {email, password})
-            .then(() => {
-              this.loading = false;
-            })
+            .then(() => this.loading = false)
 
-        if (this.isLoggedIn && !this.isActive) this.toast.error("Account is inactive")
+        if (this.isLoggedIn && !this.isActive) this.toast.error("Konto nie jest aktywne")
 
-        if (!this.isLoggedIn) this.toast.error("Email or password is incorrect")
+        if (!this.isLoggedIn) this.toast.error("Wprowadzone dane są nieprawidłowe")
         else {
-          this.toast.success("Login success")
+          this.toast.success("Zalogowano pomyślnie")
           await this.$router.push('dashboard');
         }
-      } else {
-        this.toast.error("Provide credentials")
-      }
+      } else this.toast.error("Wprowadź dane")
     },
   },
 }

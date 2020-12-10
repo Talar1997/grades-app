@@ -42,6 +42,7 @@ h2{
 .page-content{
     padding: 25px !important;
     background: rgb(250, 250, 250);
+    margin-bottom: 35px;
 }
 
 
@@ -63,3 +64,6 @@ h2{
     text-decoration: line-through;
 }
 
+.width-100 {
+    width: 100%;
+}

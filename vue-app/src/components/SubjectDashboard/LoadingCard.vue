@@ -4,13 +4,13 @@
       <div class="header-replace"></div>
     </template>
     <template #title>
-      <ProgressBar mode="indeterminate" style="height: .5em"/>
+      <Skeleton />
     </template>
     <template #subtitle>
-      Loading...
+      <Skeleton />
     </template>
     <template #content>
-      Loading...
+      <Skeleton />
     </template>
     <template #footer>
       <Button icon="pi pi-arrow-right" class="p-button-text p-button-primary float-right" />
@@ -22,14 +22,14 @@
 <script>
 import Card from "primevue/components/card/Card";
 import Button from "primevue/components/button/Button";
-import ProgressBar from "primevue/progressbar";
+import Skeleton from 'primevue/skeleton';
 
 export default {
   name: "LoadingCard",
   components: {
     Card,
     Button,
-    ProgressBar
+    Skeleton
   },
 }
 </script>

@@ -1,50 +1,62 @@
 <template>
-  <Card class="grades-card"
-        v-on:mouseover="isHovering = true"
-        v-on:mouseout="isHovering = false"
-        v-bind:class="{'p-shadow-3': isHovering}"
-        v-bind:key="subject._id">
-    <template #header>
-    </template>
-    <template #title>
-      <span v-if="!subject.active" class="p-tag p-tag-danger">Nieaktywny</span> {{ subject.name }}
-    </template>
-    <template #subtitle>
-      {{ subject.owner.name }}
-    </template>
-    <template #content>
-      <div v-bind:class="{ lineThrough: !subject.active}">
-        Pierwsze zajęcia: {{ toClearDate(subject.date) }} <br>
-        Występowanie: {{ toClearDayName(subject.date) }}
-      </div>
+  <router-link :to="{ name: 'Subject', params: { id: subject._id  }}" style="text-decoration: none">
+    <BlockUI v-bind:blocked="!subject.active"
+             v-on:mouseover="isHovering = true"
+             v-on:mouseout="isHovering = false">
+      <Card class="grades-card"
+            v-bind:key="subject._id"
+            v-bind:class="{'p-shadow-3': isHovering}">
+        <template #header>
+        </template>
+        <template #title>
+          <span v-if="!subject.active" class="p-tag p-tag-danger">Nieaktywny</span> {{ subject.name }}
+        </template>
+        <template #subtitle>
+          {{ subject.owner.name }}
+        </template>
+        <template #content>
+          <div>
+            Pierwsze zajęcia: {{ toClearDate(subject.date) }} <br>
+            Występowanie: {{ toClearDayName(subject.date) }}
+          </div>
 
-    </template>
-    <template #footer>
-      <router-link :to="{ name: 'Subject', params: { id: subject._id  }}" class="float-right">
-        <Button icon="pi pi-arrow-right" class="p-button-text p-button-primary" />
-      </router-link>
-      <div class="clear-both"></div>
-    </template>
-  </Card>
+        </template>
+        <template #footer>
+          <router-link :to="{ name: 'Subject', params: { id: subject._id  }}" class="float-right">
+            <Button icon="pi pi-arrow-right" class="p-button-text p-button-primary"/>
+          </router-link>
+          <div class="clear-both"></div>
+        </template>
+      </Card>
+    </BlockUI>
+  </router-link>
 </template>
 
 <script>
 import Card from "primevue/components/card/Card";
 import Button from "primevue/components/button/Button";
+import BlockUI from 'primevue/blockui';
+
+
 export default {
   name: "SubjectCard",
-  components:{
+
+  components: {
     Card,
-    Button
+    Button,
+    BlockUI
   },
+
   data() {
-    return{
+    return {
       isHovering: false,
     }
   },
-  props:{
+
+  props: {
     subject: null,
   },
+
   methods: {
     toClearDate(date) {
       let newDate = new Date(date);
