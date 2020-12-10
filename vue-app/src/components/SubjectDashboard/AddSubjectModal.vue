@@ -10,20 +10,24 @@
       <small class="p-invalid" v-if="submitted && !subject.name">Nazwa przedmiotu jest wymagana</small>
     </div>
     <div class="p-field">
-      <label for="name">Data zajęć</label>
+      <label for="name">Data pierwszych zajęć</label>
+<!--      FIXME: Błędy ze strony primevue - czekać na update albo robić ticket-->
 <!--      <Calendar id="date"
                 v-model="subject.date"
                 v-bind:inline="true"/>-->
+      <InputText type="date" v-model="subject.date" />
+
       <small class="p-invalid" v-if="submitted && !subject.date">Data jest wymagana</small>
     </div>
     <div class="p-field">
       <label for="name">Godzina zajęć</label>
-<!--      <Calendar id="time"
-                v-model="subject.hours"
-                v-bind:showTime="true"
-                v-bind:timeOnly="true"
-                v-bind:inline="true"/>-->
-      <Calendar v-model="subject.hours" />
+      <!--      FIXME: Błędy ze strony primevue - czekać na update albo robić ticket-->
+      <!--      <Calendar id="time"
+                      v-model="subject.hours"
+                      v-bind:showTime="true"
+                      v-bind:timeOnly="true"
+                      v-bind:inline="true"/>-->
+      <InputText type="time" v-model="subject.hours"/>
 
       <small class="p-invalid" v-if="submitted && !subject.hours">Godzina jest wymagana</small>
     </div>
@@ -39,7 +43,7 @@
 import Button from "primevue/components/button/Button";
 import InputText from "primevue/components/inputtext/InputText";
 import Dialog from "primevue/components/dialog/Dialog";
-import Calendar from 'primevue/calendar';
+//import Calendar from 'primevue/calendar';
 import {mapActions} from "vuex";
 import {useToast} from "vue-toastification";
 
@@ -49,7 +53,7 @@ export default {
     Dialog,
     InputText,
     Button,
-    Calendar
+    //Calendar
   },
 
   setup() {
@@ -79,7 +83,11 @@ export default {
       this.submitted = true;
       this.subject.owner = JSON.parse(localStorage.getItem('user')).data.user._id;
 
-      // TODO: logika: zamiana subject.date = subject.date + subject.hours
+      //FIXME: tymczasowy fix
+      let newDate = new Date(this.subject.date + "T" + this.subject.hours);
+      newDate.setHours(newDate.getHours() + 1);
+      this.subject.date = newDate;
+
       this.createNewSubject(this.subject)
           .then(() => {
             this.toast.success("Utworzono nowy przedmiot");

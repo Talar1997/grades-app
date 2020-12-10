@@ -17,6 +17,8 @@
         <Button label="Yes" icon="pi pi-check" autofocus />
       </template>
     </Dialog>
+
+    <Calendar v-model="test"></Calendar>
   </main-layout>
 </template>
 
@@ -26,6 +28,7 @@ import MainLayout from '@/layouts/Main';
 import Dialog from "primevue/dialog";
 import Button from "primevue/components/button/Button";
 import InputText from "primevue/components/inputtext/InputText";
+import Calendar from "primevue/components/calendar/Calendar";
 
 export default {
   name: 'DataTest',
@@ -34,10 +37,12 @@ export default {
     Dialog,
     Button,
     InputText,
+    Calendar
   },
   data(){
     return{
       display: true,
+      test: null,
     }
   },
   computed: {
