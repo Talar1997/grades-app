@@ -23,11 +23,11 @@ export default {
     //text-transform: uppercase;
     text-align: center;
     padding: 25px;
-    color: rgb(100,100,100)
+    color: rgb(150,150,150)
   }
 
   .empty-tab h2, .empty-tab h3{
-    color: rgb(100,100,100)
+    color: rgb(150,150,150)
   }
 
   .empty-tab-icon{

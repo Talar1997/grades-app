@@ -4,6 +4,12 @@
               title="Brak danych!"
               message="Brak studentów przypisanych do przedmiotu. Dodaj ich w zakładce 'Ustawienia'">
     </EmptyTab>
+    <ul v-else>
+      <li v-for="student in students"
+          :key="student._id">
+        {{student.name}}
+      </li>
+    </ul>
   </div>
 </template>
 

@@ -5,8 +5,8 @@ import AllSubjects from "@/views/AllSubjects.vue";
 import Subject from "@/views/Subject.vue";
 import Login from "@/views/Login.vue";
 import DataTest from "@/views/DataTest.vue";
-//import Students from "@/views/Students";
 import Users from "@/views/Users";
+import NotFound from "@/views/NotFound";
 
 const routes = [
     {
@@ -15,6 +15,15 @@ const routes = [
         component: Dashboard,
         meta: {
             title: 'Twoje przedmioty - Resource Manager',
+            requireAuth: true,
+        }
+    },
+    {
+        path: "/404",
+        name: "NotFound",
+        component: NotFound,
+        meta: {
+            title: '404 - GradesApp',
             requireAuth: true,
         }
     },

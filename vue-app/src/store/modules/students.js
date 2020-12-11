@@ -1,4 +1,4 @@
-import {fetchAllStudents} from "@/api/studentsApi";
+import {fetchAllStudents, postStudent} from "@/api/studentsApi";
 
 const state = () => ({
     all: [],
@@ -21,7 +21,12 @@ const actions = {
         await fetchAllStudents({subject: subjectId}).then(result => {
             commit('setStudentsFromSubject', result)
         })
+    },
 
+    async postStudent({commit}, student){
+        await postStudent(student).then(result => {
+            commit('pushNewStudent', result.doc)
+        })
     }
 }
 
@@ -32,7 +37,12 @@ const mutations = {
 
     setStudentsFromSubject(state, students){
         state.studentsFromSubject = students
-    }
+    },
+
+    pushNewStudent(state, student){
+      state.all.push(student)
+      state.studentsFromSubject.push(student)
+    },
 }
 
 export default {

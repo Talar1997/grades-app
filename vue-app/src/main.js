@@ -9,14 +9,16 @@ import Toast from "vue-toastification"
 import "vue-toastification/dist/index.css"
 import mitt from "mitt"
 
-
 const app = createApp(App)
 const emitter = mitt()
 app.config.globalProperties.emitter = emitter
 
 // FIXME: Nie działa, a wg. dokumentacji powinno
-//app.use(ToastService);
 //import ToastService from 'primevue/toastservice';
+//app.use(ToastService);
+//import ConfirmationService from 'primevue/confirmationservice';
+//app.use(ConfirmationService);
+
 
 //https://github.com/Maronato/vue-toastification/tree/next
 const options = {
@@ -37,6 +39,7 @@ app.use(Toast, options)
 
 app.use(store)
 app.use(router)
+
 
 router.beforeEach((to, from, next) =>
     routerMiddleware(to, from, next));

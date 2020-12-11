@@ -30,7 +30,8 @@
               <i class="pi pi-cog icon-spacing"></i>
               <span>Ustawienia</span>
             </template>
-            <SettingsTab></SettingsTab>
+            <SettingsTab v-bind:students="students"
+                         v-bind:subject="subject"></SettingsTab>
           </TabPanel>
         </TabView>
       </div>
@@ -82,12 +83,6 @@ export default {
   },
 
   methods: {
-/*    ...mapActions('subject', [
-      'getSubjectById'
-    ]),
-    ...mapActions('students', [
-      'getStudentsFromSubject'
-    ]),*/
     ...mapActions({
       getStudentsFromSubject: "students/getStudentsFromSubject",
       getSubjectById: "subject/getSubjectById",
@@ -99,10 +94,14 @@ export default {
   },
 
   created() {
-    this.getSubjectById(this.subjectId).then(() => {
-      this.subject = this.getSubject()
-      this.loadingSubject = false
-    });
+    this.getSubjectById(this.subjectId)
+        .then(() => {
+          this.subject = this.getSubject()
+          this.loadingSubject = false
+        })
+        .catch(() => {
+          this.$router.push("/404");
+        });
 
     this.getStudentsFromSubject(this.subjectId).then(() => {
       this.students = this.getFromSubject()

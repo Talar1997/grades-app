@@ -44,7 +44,7 @@
 
 <script>
 import {isEmpty} from "@/utils/string-helpers.js";
-import {mapGetters, mapState} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import Password from 'primevue/password';
 import InputText from 'primevue/inputtext';
 import Card from 'primevue/card';
@@ -77,9 +77,6 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      user: state => state.user
-    }),
     ...mapGetters({
       isLoggedIn: 'user/isLoggedIn',
       isActive: 'user/isActive',
@@ -88,10 +85,9 @@ export default {
   },
 
   methods: {
-    //FIXME: ...mapActions nie działa, await this.login(); - powinno działać a też nie działa
-    /*...mapActions('user', [
-      'login'
-    ]),*/
+    ...mapActions({
+      loginToApi: 'user/login',
+    }),
 
     async login() {
       const email = this.input.email;
@@ -99,7 +95,7 @@ export default {
       this.loading = true;
 
       if (!isEmpty(email) && !isEmpty(password)) {
-        await this.$store.dispatch('user/login', {email, password})
+        await this.loginToApi({email, password})
             .then(() => this.loading = false)
 
         if (this.isLoggedIn && !this.isActive) this.toast.error("Konto nie jest aktywne")
