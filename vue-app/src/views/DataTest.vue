@@ -9,35 +9,32 @@
       </li>
     </ul>
 
-    <Dialog header="Header" v-model:visible="display" >
-      <InputText id="email" type="text"/><br/><br/>
-      <InputText id="test2" type="text"/>
-      <template #footer>
-        <Button label="No" icon="pi pi-times" class="p-button-text" />
-        <Button label="Yes" icon="pi pi-check" autofocus />
-      </template>
-    </Dialog>
-
     <Calendar v-model="test"></Calendar>
+
+
+
+    <Button v-on:click="deleteTest()" icon="pi pi-check" label="Confirm"></Button>
+    <Toast></Toast>
+    <ConfirmPopup></ConfirmPopup>
   </main-layout>
 </template>
 
 <script>
-import {mapState, mapActions, mapGetters} from 'vuex'
+import {mapActions, mapGetters, mapState} from 'vuex'
 import MainLayout from '@/layouts/Main';
-import Dialog from "primevue/dialog";
 import Button from "primevue/components/button/Button";
-import InputText from "primevue/components/inputtext/InputText";
 import Calendar from "primevue/components/calendar/Calendar";
+import ConfirmPopup from 'primevue/confirmpopup';
+import Toast from 'primevue/toast';
 
 export default {
   name: 'DataTest',
   components:{
     MainLayout,
-    Dialog,
     Button,
-    InputText,
-    Calendar
+    Calendar,
+    ConfirmPopup,
+    Toast
   },
   data(){
     return{
@@ -67,7 +64,20 @@ export default {
 
     showData(subject){
       alert(subject.name);
-    }
+    },
+
+    deleteTest() {
+      this.$confirm.require({
+        message: 'Are you sure you want to proceed?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          //callback to execute when user confirms the action
+        },
+        reject: () => {
+          //callback to execute when user rejects the action
+        }
+      });
+    },
 
   },
   created () {
@@ -75,6 +85,10 @@ export default {
       this.subjects.forEach(el => console.log(el.name + el.active))
     })
   },
+
+  mounted() {
+    this.$toast.add({severity:'success', summary: 'Success Message', detail:'Order submitted', life: 3000});
+  }
 
 }
 </script>
