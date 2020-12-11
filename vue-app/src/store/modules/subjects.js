@@ -1,7 +1,7 @@
 import {fetchAllSubjects, postSubject} from '@/api/subjectsApi';
 
 const state = () => ({
-    all: []
+    all: [],
 })
 
 const getters = {
@@ -12,15 +12,15 @@ const getters = {
 const actions = {
     async getAllSubjects({commit}) {
         await fetchAllSubjects().then(result => {
-            commit('setSubjects', result);
+            commit('setSubjects', result)
         })
     },
 
     async createNewSubject({commit}, subject){
         await postSubject(subject)
             .then(result => {
-                const newDocument = result.doc;
-                commit('pushSubject', newDocument);
+                const newDocument = result.doc
+                commit('pushSubject', newDocument)
             })
     }
 }
@@ -31,7 +31,7 @@ const mutations = {
     },
 
     pushSubject(state, subject){
-        state.all.push(subject);
+        state.all.push(subject)
     }
 }
 

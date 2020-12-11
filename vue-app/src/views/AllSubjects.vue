@@ -1,7 +1,7 @@
 <template>
   <main-layout>
     <div class="page-header">
-      <h1 class="page-header-h">Dashboard</h1>
+      <h1 class="page-header-h">Wszystkie przedmioty</h1>
     </div>
 
     <div class="p-grid" v-if="subjectsLoading">

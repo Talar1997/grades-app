@@ -83,7 +83,7 @@ export default {
       this.submitted = true;
       this.subject.owner = JSON.parse(localStorage.getItem('user')).data.user._id;
 
-      //FIXME: tymczasowy fix
+      //FIXME: tymczasowy fix. Jak obsługiwać date z timezone? Wprowadzona data z inputu zawsze jest inna niż ta w new Date()
       let newDate = new Date(this.subject.date + "T" + this.subject.hours);
       newDate.setHours(newDate.getHours() + 1);
       this.subject.date = newDate;

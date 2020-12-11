@@ -1,10 +1,23 @@
 <template>
-
+  <div>
+    <EmptyTab v-if="students.length === 0"
+              title="Brak danych!"
+              message="Brak studentów przypisanych do przedmiotu. Dodaj ich w zakładce 'Ustawienia'">
+    </EmptyTab>
+  </div>
 </template>
 
 <script>
+import EmptyTab from "@/components/Subject/EmptyTab";
+
 export default {
-name: "AbsencesTab"
+  name: "AbsencesTab",
+  components: {
+    EmptyTab,
+  },
+  props: {
+    students: {required: true}
+  }
 }
 </script>
 

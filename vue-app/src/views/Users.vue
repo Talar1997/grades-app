@@ -1,6 +1,8 @@
 <template>
   <main-layout>
-    <h1>Użytkownicy</h1>
+    <div class="page-header">
+      <h1 class="page-header-h">Użytkownicy</h1>
+    </div>
     <div class=" p-grid">
       <div class="p-col-12 page-content p-shadow-2">
         <UsersTable v-bind:users="users"></UsersTable>
