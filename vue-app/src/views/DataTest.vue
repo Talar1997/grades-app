@@ -14,7 +14,7 @@
 
 
     <Button v-on:click="deleteTest()" icon="pi pi-check" label="Confirm"></Button>
-    <Toast></Toast>
+    <Toast position="bottom-right"></Toast>
     <ConfirmPopup></ConfirmPopup>
   </main-layout>
 </template>
@@ -26,6 +26,7 @@ import Button from "primevue/components/button/Button";
 import Calendar from "primevue/components/calendar/Calendar";
 import ConfirmPopup from 'primevue/confirmpopup';
 import Toast from 'primevue/toast';
+import {notificationMixin} from "@/mixins/notoficationMixin";
 
 export default {
   name: 'DataTest',
@@ -36,6 +37,11 @@ export default {
     ConfirmPopup,
     Toast
   },
+
+  mixins:[
+    notificationMixin
+  ],
+
   data(){
     return{
       display: true,
@@ -67,7 +73,11 @@ export default {
     },
 
     deleteTest() {
-      this.$confirm.require({
+      this.testFunction()
+      this.pushSuccess("test", "test2");
+      this.pushError("test", "test2");
+      this.pushInfo("test", "test2");
+      /*this.$confirm.require({
         message: 'Are you sure you want to proceed?',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
@@ -76,7 +86,7 @@ export default {
         reject: () => {
           //callback to execute when user rejects the action
         }
-      });
+      });*/
     },
 
   },

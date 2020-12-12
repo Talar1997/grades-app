@@ -66,7 +66,7 @@ export default {
     toClearHour(date) {
       let newDate = new Date(date);
       let minutes = newDate.getUTCMinutes()
-      let minutesString = minutes === 0 ? `0${minutes}` : minutes;
+      let minutesString = minutes < 10 ? `0${minutes}` : minutes;
       return `${newDate.getUTCHours()}:${minutesString}`
     },
 

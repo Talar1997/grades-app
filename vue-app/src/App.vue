@@ -1,5 +1,6 @@
 <template>
   <router-view/>
+  <Toast position="bottom-right"></Toast>
 </template>
 
 <style>
@@ -10,9 +11,13 @@
 </style>
 
 <script>
+  import Toast from "primevue/components/toast/Toast";
 
   export default {
     name: 'App',
+    components: {
+      Toast
+    }
   }
 </script>
 

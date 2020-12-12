@@ -5,8 +5,6 @@ import axios from 'axios'
 import router from './router'
 import {routerMiddleware} from "@/router/router-middleware"
 import 'primeflex/primeflex.css'
-import Toast from "vue-toastification"
-import "vue-toastification/dist/index.css"
 import mitt from "mitt"
 import PrimeVue from 'primevue/config';
 import ConfirmationService from 'primevue/confirmationservice';
@@ -16,24 +14,6 @@ const app = createApp(App)
 const emitter = mitt()
 app.config.globalProperties.emitter = emitter
 
-//https://github.com/Maronato/vue-toastification/tree/next
-//TODO: wyjebać i zastąpić ToastService z PrimeVue
-const options = {
-    position: "bottom-right",
-    timeout: 3000,
-    closeOnClick: true,
-    pauseOnFocusLoss: true,
-    pauseOnHover: true,
-    draggable: true,
-    draggablePercent: 0.6,
-    showCloseButtonOnHover: true,
-    hideProgressBar: true,
-    closeButton: "button",
-    icon: true,
-    rtl: false
-};
-
-app.use(Toast, options)
 app.use(store)
 app.use(router)
 app.use(PrimeVue)

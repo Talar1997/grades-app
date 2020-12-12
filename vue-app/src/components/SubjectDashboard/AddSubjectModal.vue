@@ -11,23 +11,21 @@
     </div>
     <div class="p-field">
       <label for="name">Data pierwszych zajęć</label>
-<!--      FIXME: Błędy ze strony primevue - czekać na update albo robić ticket-->
-<!--      <Calendar id="date"
+      <Calendar id="date"
                 v-model="subject.date"
-                v-bind:inline="true"/>-->
-      <InputText type="date" v-model="subject.date" />
+                v-bind:inline="true"/>
+<!--      <InputText type="date" v-model="subject.date" />-->
 
       <small class="p-invalid" v-if="submitted && !subject.date">Data jest wymagana</small>
     </div>
     <div class="p-field">
       <label for="name">Godzina zajęć</label>
-      <!--      FIXME: Błędy ze strony primevue - czekać na update albo robić ticket-->
-      <!--      <Calendar id="time"
+            <Calendar id="time"
                       v-model="subject.hours"
                       v-bind:showTime="true"
                       v-bind:timeOnly="true"
-                      v-bind:inline="true"/>-->
-      <InputText type="time" v-model="subject.hours"/>
+                      v-bind:inline="true"/>
+<!--      <InputText type="time" v-model="subject.hours"/>-->
 
       <small class="p-invalid" v-if="submitted && !subject.hours">Godzina jest wymagana</small>
     </div>
@@ -43,9 +41,9 @@
 import Button from "primevue/components/button/Button";
 import InputText from "primevue/components/inputtext/InputText";
 import Dialog from "primevue/components/dialog/Dialog";
-//import Calendar from 'primevue/calendar';
+import Calendar from 'primevue/calendar';
 import {mapActions} from "vuex";
-import {useToast} from "vue-toastification";
+import {notificationMixin} from "@/mixins/notoficationMixin";
 
 export default {
   name: "AddSubjectModal",
@@ -53,12 +51,7 @@ export default {
     Dialog,
     InputText,
     Button,
-    //Calendar
-  },
-
-  setup() {
-    const toast = useToast();
-    return {toast}
+    Calendar
   },
 
   data() {
@@ -68,6 +61,10 @@ export default {
       subject: {},
     }
   },
+
+  mixins: [
+    notificationMixin
+  ],
 
   methods: {
     ...mapActions('subjects', [
@@ -83,19 +80,17 @@ export default {
       this.submitted = true;
       this.subject.owner = JSON.parse(localStorage.getItem('user')).data.user._id;
 
-      //FIXME: tymczasowy fix. Jak obsługiwać date z timezone? Wprowadzona data z inputu zawsze jest inna niż ta w new Date()
-      let newDate = new Date(this.subject.date + "T" + this.subject.hours);
-      newDate.setHours(newDate.getHours() + 1);
-      this.subject.date = newDate;
+      this.subject.date.setHours(this.subject.hours.getHours() + 1)
+      this.subject.date.setMinutes(this.subject.hours.getMinutes())
 
       this.createNewSubject(this.subject)
           .then(() => {
-            this.toast.success("Utworzono nowy przedmiot");
+            this.pushSuccess("Sukces","Utworzono nowy przedmiot");
             this.subjectDialog = false;
             this.subject = {};
           })
           .catch(() => {
-            this.toast.error("Wystąpił błąd podczas tworzenia nowego przedmiotu");
+            this.pushError("Błąd", "Wystąpił błąd podczas tworzenia nowego przedmiotu");
           });
     }
   },

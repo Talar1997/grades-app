@@ -38,7 +38,6 @@
         </div>
       </div>
     </div>
-    <Toast></Toast>
   </div>
 </template>
 
@@ -49,8 +48,7 @@ import Password from 'primevue/password';
 import InputText from 'primevue/inputtext';
 import Card from 'primevue/card';
 import Button from 'primevue/button';
-import Toast from 'primevue/toast';
-import {useToast} from "vue-toastification";
+import {notificationMixin} from "@/mixins/notoficationMixin";
 
 export default {
   name: 'Login',
@@ -59,7 +57,6 @@ export default {
     InputText,
     Card,
     Button,
-    Toast
   },
   data() {
     return {
@@ -71,10 +68,9 @@ export default {
     }
   },
 
-  setup() {
-    const toast = useToast();
-    return {toast}
-  },
+  mixins: [
+    notificationMixin
+  ],
 
   computed: {
     ...mapGetters({
@@ -98,14 +94,14 @@ export default {
         await this.loginToApi({email, password})
             .then(() => this.loading = false)
 
-        if (this.isLoggedIn && !this.isActive) this.toast.error("Konto nie jest aktywne")
+        if (this.isLoggedIn && !this.isActive) this.pushError("Błąd", "Konto nie jest aktywne")
 
-        if (!this.isLoggedIn) this.toast.error("Wprowadzone dane są nieprawidłowe")
+        if (!this.isLoggedIn) this.pushError("Błąd", "Wprowadzone dane są nieprawidłowe")
         else {
-          this.toast.success("Zalogowano pomyślnie")
+          this.pushSuccess("Sukces", "Zalogowano pomyślnie")
           await this.$router.push('dashboard');
         }
-      } else this.toast.error("Wprowadź dane")
+      } else this.pushError("Błąd", "Wprowadź dane")
     },
   },
 }
