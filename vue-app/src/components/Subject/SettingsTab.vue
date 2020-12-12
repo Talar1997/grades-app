@@ -35,15 +35,15 @@
 
           <!--FIXME: błąd, nie zaznacza poprawnej wartośći-->
           <SelectButton v-bind:options="selectOptions" optionLabel="name" optionValue="value"
-          v-bind:value="subject.active" style="width: 100%">
+                        v-bind:value="subject.active" style="width: 100%">
           </SelectButton>
         </div>
       </div>
 
       <div class="p-col-12 p-md-4">
         <div class="p-inputgroup">
-          <Button @click="updateSubject()" icon="pi pi-check" label="Zapisz zmiany" class="p-button-outlined"></Button>
-          <Button @click="deleteSubject()" icon="pi pi-times" class="p-button-danger p-ml-2 p-button-outlined"
+          <Button v-on:click="confirmAction($event, updateSubject)" icon="pi pi-check" label="Zapisz zmiany" class="p-button-outlined"></Button>
+          <Button v-on:click="confirmAction($event, deleteSubject)" icon="pi pi-times" class="p-button-danger p-ml-2 p-button-outlined"
                   label="Usuń przedmiot"></Button>
         </div>
       </div>
@@ -61,7 +61,12 @@
       </div>
       <div class="p-col-12 p-md-4">
         <div class="p-inputgroup">
-          <Button @click="addStudents()" icon="pi pi-check" label="Dodaj" class="p-button-outlined"></Button>
+          <Button v-on:click="confirmAction($event, addStudents)"
+                  icon="pi pi-check"
+                  label="Dodaj"
+                  class="p-button-outlined"
+                  id="addNewStudentsButton">
+          </Button>
         </div>
       </div>
     </div>
@@ -72,11 +77,12 @@
     <ul v-else>
       <li v-for="student in students"
           :key="student._id">
-        {{student.name}}
+        {{ student.name }}
       </li>
     </ul>
 
   </div>
+  <ConfirmPopup></ConfirmPopup>
 </template>
 
 <script>
@@ -86,6 +92,8 @@ import InputText from "primevue/components/inputtext/InputText";
 import Button from "primevue/components/button/Button";
 import SelectButton from 'primevue/components/selectbutton/SelectButton';
 import {mapActions} from "vuex";
+import ConfirmPopup from "primevue/components/confirmpopup/ConfirmPopup";
+import {notificationMixin} from "@/mixins/notoficationMixin";
 
 export default {
   name: "SettingsTab",
@@ -95,7 +103,8 @@ export default {
     Chips,
     InputText,
     Button,
-    SelectButton
+    SelectButton,
+    ConfirmPopup
   },
 
   props: {
@@ -107,12 +116,16 @@ export default {
     return {
       newStudents: [],
       updatedSubject: {},
-      selectOptions:  [
+      selectOptions: [
         {name: 'Aktywny', value: true},
         {name: 'Nieaktywny', value: false},
       ],
     }
   },
+
+  mixins: [
+    notificationMixin
+  ],
 
   methods: {
     ...mapActions({
@@ -120,15 +133,14 @@ export default {
     }),
 
     updateSubject() {
-      //TODO: obsłużyć modalem coś w stylu ConfirmDialog
+
     },
 
     deleteSubject() {
-      //TODO: obsłużyć modalem coś w stylu ConfirmDialog
+
     },
 
     addStudents() {
-      //TODO: obsłużyć modalem coś w stylu ConfirmDialog
       this.newStudents.forEach(newStudent => {
         const student = {
           name: newStudent.trim(),
@@ -136,11 +148,16 @@ export default {
           grades: [],
           absences: [],
         }
-        this.createNewStudent(student)
+        this.createNewStudent(student).catch(() => {
+          this.pushError("Błąd", "Coś poszło nie tak")
+        })
       })
 
+      if(this.newStudents.length > 0) this.pushSuccess("Sukces", "Pomyślnie dodano nowych studentów")
+      else this.pushInfo("Brak danych", "Wprowadź dane")
+
       this.newStudents = []
-    }
+    },
   }
 }
 </script>

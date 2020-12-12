@@ -14,8 +14,6 @@
       <Calendar id="date"
                 v-model="subject.date"
                 v-bind:inline="true"/>
-<!--      <InputText type="date" v-model="subject.date" />-->
-
       <small class="p-invalid" v-if="submitted && !subject.date">Data jest wymagana</small>
     </div>
     <div class="p-field">
@@ -25,8 +23,6 @@
                       v-bind:showTime="true"
                       v-bind:timeOnly="true"
                       v-bind:inline="true"/>
-<!--      <InputText type="time" v-model="subject.hours"/>-->
-
       <small class="p-invalid" v-if="submitted && !subject.hours">Godzina jest wymagana</small>
     </div>
 
