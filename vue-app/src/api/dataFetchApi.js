@@ -63,20 +63,20 @@ export async function patchData(nodeUrl, id, object, resolveFn = null, rejectFn 
         })
 }
 
-export async function deleteData(nodeUrl, id, resolve, reject) {
+export async function deleteData(nodeUrl, id) {
     return axios
         .delete(nodeUrl + "/" + id)
         .then(response => {
             if (response.status === 204) {
-                resolve();
+                //resolve();
                 return Promise.resolve(response.data.data);
             } else {
-                reject();
+                //reject();
                 return Promise.reject(response.status)
             }
         })
         .catch(error => {
-            reject();
+            //reject();
             if (error.response) return Promise.reject(error.response);
             else return Promise.reject(error);
         })

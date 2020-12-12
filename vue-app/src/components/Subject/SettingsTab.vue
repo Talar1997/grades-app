@@ -8,7 +8,7 @@
         <span class="p-inputgroup-addon">
             <i class="pi pi-user"></i>
         </span>
-          <InputText placeholder="Nazwa przedmiotu" v-bind:value="subject.name"/>
+          <InputText placeholder="Nazwa przedmiotu" v-model="updatedSubject.name"/>
         </div>
       </div>
 
@@ -16,8 +16,9 @@
         <div class="p-inputgroup">
           <span class="p-inputgroup-addon"><i class="pi pi-calendar"></i></span>
 
-          <!--FIXME: błąd, nie zaznacza poprawnej wartośći-->
-          <InputText type="date" placeholder="Data" v-bind:value="subject.date"/>
+          <Calendar id="date"
+                    v-model="updatedSubject.date"
+                    v-bind:inline="false"/>
         </div>
       </div>
 
@@ -25,17 +26,19 @@
         <div class="p-inputgroup">
           <span class="p-inputgroup-addon"><i class="pi pi-clock"></i> </span>
 
-          <!--FIXME: błąd, nie zaznacza poprawnej wartośći-->
-          <InputText type="time" placeholder="Godzina" v-bind:value="subject.date"/>
+          <Calendar id="time"
+                    v-model="updatedSubject.hours"
+                    v-bind:showTime="true"
+                    v-bind:timeOnly="true"
+                    v-bind:inline="false"/>
         </div>
       </div>
 
       <div class="p-col-12 p-md-3">
         <div class="p-inputgroup">
 
-          <!--FIXME: błąd, nie zaznacza poprawnej wartośći-->
           <SelectButton v-bind:options="selectOptions" optionLabel="name" optionValue="value"
-                        v-bind:value="subject.active" style="width: 100%">
+                        v-model="updatedSubject.active" style="width: 100%" v-on:click="updateSubject">
           </SelectButton>
         </div>
       </div>
@@ -94,6 +97,7 @@ import SelectButton from 'primevue/components/selectbutton/SelectButton';
 import {mapActions} from "vuex";
 import ConfirmPopup from "primevue/components/confirmpopup/ConfirmPopup";
 import {notificationMixin} from "@/mixins/notoficationMixin";
+import Calendar from "primevue/components/calendar/Calendar";
 
 export default {
   name: "SettingsTab",
@@ -104,7 +108,8 @@ export default {
     InputText,
     Button,
     SelectButton,
-    ConfirmPopup
+    ConfirmPopup,
+    Calendar
   },
 
   props: {
@@ -130,14 +135,24 @@ export default {
   methods: {
     ...mapActions({
       createNewStudent: "students/postStudent",
+      removeSubject: "subject/removeSubject"
     }),
 
     updateSubject() {
-
+      //TODO: dokończyć
     },
 
     deleteSubject() {
-
+      if(this.students.length !== 0){
+        this.pushError("Błąd", "Nie można usunąć przedmiotu jeżeli znajdują się w nim studenci")
+      }
+      else{
+        this.removeSubject(this.subject._id)
+        .then(()=>{
+          this.pushSuccess("Sukces", "Pomyślnie usunięto przedmiot")
+          this.$router.push("/dashboard")
+        })
+      }
     },
 
     addStudents() {
@@ -158,6 +173,20 @@ export default {
 
       this.newStudents = []
     },
+  },
+
+  watch:{
+    subject(newValue, oldValue){
+      console.log(oldValue)
+
+      this.updatedSubject.name = newValue.name;
+      this.updatedSubject.date = new Date(newValue.date).toLocaleDateString()
+      this.updatedSubject.hours = new Date(newValue.date)
+      this.updatedSubject.hours.setHours(this.updatedSubject.hours.getHours() - 1)
+      this.updatedSubject.hours = this.updatedSubject.hours.toLocaleTimeString()
+
+      this.updatedSubject.active = newValue.active
+    }
   }
 }
 </script>
