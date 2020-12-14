@@ -5,27 +5,26 @@
         <span v-if="!loadingSubject" >Przedmiot: {{ subject.name }}</span>
         <Skeleton class="skeleton-header" v-else></Skeleton>
       </h1>
-
     </div>
 
     <div class=" p-grid">
       <div class="p-col-12 page-content p-shadow-2">
         <TabView class="tabview-custom">
-          <TabPanel>
+          <TabPanel v-bind:disabled="isDataLoading()">
             <template #header>
               <i class="pi pi-check-square icon-spacing"></i>
               <span>Obecności</span>
             </template>
             <AbsencesTab v-bind:students="students"></AbsencesTab>
           </TabPanel>
-          <TabPanel>
+          <TabPanel v-bind:disabled="isDataLoading()">
             <template #header>
               <i class="pi pi-briefcase icon-spacing"></i>
               <span>Oceny</span>
             </template>
             <GradesTab v-bind:students="students"></GradesTab>
           </TabPanel>
-          <TabPanel>
+          <TabPanel v-bind:disabled="isDataLoading()">
             <template #header>
               <i class="pi pi-cog icon-spacing"></i>
               <span>Ustawienia</span>
@@ -36,7 +35,6 @@
         </TabView>
       </div>
     </div>
-
   </main-layout>
 </template>
 
@@ -86,7 +84,11 @@ export default {
     ...mapActions({
       getStudentsFromSubject: "students/getStudentsFromSubject",
       getSubjectById: "subject/getSubjectById",
-    })
+    }),
+
+    isDataLoading(){
+      return this.loadingSubject && this.loadingStudents
+    }
   },
 
 

@@ -27,8 +27,8 @@
     </div>
 
     <template #footer>
-      <Button label="Anuluj" icon="pi pi-times" class="p-button-text p-button-secondary" @click="hideDialog"/>
-      <Button label="Zapisz" icon="pi pi-check" class="p-button" @click="saveSubject"/>
+      <Button label="Anuluj" icon="pi pi-times" class="p-button-text p-button-secondary" v-on:click="hideDialog"/>
+      <Button label="Zapisz" icon="pi pi-check" class="p-button" v-on:click="saveSubject"/>
     </template>
   </Dialog>
 </template>

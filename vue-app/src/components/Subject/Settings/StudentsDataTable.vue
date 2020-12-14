@@ -12,10 +12,11 @@
       <Column headerStyle="width:5rem" bodyStyle="text-align:center">
         <template #body="slotProps">
           <Button icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text"
-                  v-on:click="confirmDeleteStudent(slotProps.data)"/>
+                  v-on:click="confirmActionWithArg($event, slotProps.data, deleteStudent)"/>
         </template>
       </Column>
     </DataTable>
+    <ConfirmPopup></ConfirmPopup>
   </div>
 </template>
 
@@ -25,6 +26,8 @@ import Button from "primevue/components/button/Button";
 import DataTable from "primevue/components/datatable/DataTable";
 import Column from "primevue/components/column/Column";
 import {notificationMixin} from "@/mixins/notoficationMixin";
+import ConfirmPopup from "primevue/components/confirmpopup/ConfirmPopup";
+import {mapActions} from "vuex";
 
 export default {
   name: "StudentsDataTable",
@@ -33,7 +36,8 @@ export default {
     InputText,
     Button,
     DataTable,
-    Column
+    Column,
+    ConfirmPopup
   },
 
   props: {
@@ -52,6 +56,10 @@ export default {
   ],
 
   methods: {
+    ...mapActions({
+      removeStudentFromSubject: 'students/removeStudent'
+    }),
+
     onRowEditInit(event) {
       // this.originalRows[event.index] = {...this.products3[event.index]};
       console.log(event)
@@ -62,9 +70,31 @@ export default {
       console.log(event)
     },
 
-    confirmDeleteStudent(data) {
-      console.log(data)
-    }
+    deleteStudent(data) {
+      this.removeStudentFromSubject(data._id)
+          .then(() => {
+            this.pushSuccess("Sukces", "Pomyślnie usunięto studenta z listy")
+          })
+          .catch(() => {
+            this.pushError("Błąd", "Coś poszło nie tak")
+          })
+    },
+
+    confirmActionWithArg(event, data, acceptAction, rejectAction) {
+      this.$confirm.require({
+        target: event.currentTarget,
+        message: 'Czy na pewno chcesz wykonać daną akcję?',
+        acceptLabel: "Tak",
+        rejectLabel: "Nie",
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          if (typeof acceptAction === "function") acceptAction(data);
+        },
+        reject: () => {
+          if (typeof rejectAction === "function") rejectAction();
+        }
+      });
+    },
   },
 }
 </script>
