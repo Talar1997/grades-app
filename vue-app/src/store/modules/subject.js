@@ -23,10 +23,10 @@ const actions = {
             })
     },
 
-    async updateSubject({commit}, id, object) {
-        await patchSubject(id, object)
+    async updateSubject({commit}, object) {
+        await patchSubject(object.id, object)
             .then(result => {
-              commit('setSubject', result.doc)
+                commit('setSubject', result)
             })
     }
 }

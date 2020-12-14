@@ -23,11 +23,11 @@ const actions = {
         })
     },
 
-    async postStudent({commit}, student){
+    async createNewStudent({commit}, student){
         await postStudent(student).then(result => {
             commit('pushNewStudent', result.doc)
         })
-    }
+    },
 }
 
 const mutations = {

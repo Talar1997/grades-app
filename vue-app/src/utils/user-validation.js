@@ -1,5 +1,4 @@
-import axios from "axios";
-import {nodesUrl} from "./api-url";
+import {validateUserToken} from "@/api/usersApi"
 
 export const userValidator = {
     isUserLoggedIn,
@@ -13,34 +12,30 @@ function isUserLoggedIn() {
 }
 
 export function isUserInRole(role) {
-    let user = getUser();
-    let userRole = user.data.user.role;
-    return userRole === role;
+    let user = getUser()
+    let userRole = user.data.user.role
+    return userRole === role
 }
 
-// TODO: zastąpić axios dataFetchApi
 async function validateTokenOnServer() {
     if (getUser()) {
-        let status = await axios
-            .get(nodesUrl.tokenValidation)
+        let status = await validateUserToken()
             .then(response => {
-                return response.data;
+                return response.status
             })
-            .catch(err => {
-                console.log(err)
-            });
-        return status.valid;
+            .catch(error => {
+                console.log(error)
+            })
+        return status.valid
     }
 }
 
-// TODO: date.now = ms, server timestamp = s
 function validateTokenTimestamp() {
-    /*let user = getUser();
-    let currentTimestamp = Date.now();
-    return user.expires > currentTimestamp;*/
-    return true
+    let user = getUser()
+    if (user) return new Date(user.expires) > new Date()
+    else return false
 }
 
 function getUser() {
-    return JSON.parse(localStorage.getItem('user'));
+    return JSON.parse(localStorage.getItem('user'))
 }

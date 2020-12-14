@@ -25,6 +25,7 @@ function login(email, password) {
 }
 
 function logout() {
-    axios.get(nodesUrl.logout);
-    localStorage.removeItem('user');
+    axios.get(nodesUrl.logout).then(() => {
+        localStorage.removeItem('user');
+    });
 }

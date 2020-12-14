@@ -2,7 +2,7 @@
   <main-layout>
     <div class="page-header">
       <h1 class="page-header-h">
-        <span v-if="!loadingSubject">Przedmiot: {{ subject.name }}</span>
+        <span v-if="!loadingSubject" >Przedmiot: {{ subject.name }}</span>
         <Skeleton class="skeleton-header" v-else></Skeleton>
       </h1>
 
@@ -107,7 +107,7 @@ export default {
       this.students = this.getFromSubject()
       this.loadingSubject = false
     })
-  }
+  },
 }
 </script>
 
