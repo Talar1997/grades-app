@@ -4,19 +4,19 @@
       <h1 class="page-header-h">Wszystkie przedmioty</h1>
     </div>
 
-    <div class="p-grid" v-if="subjectsLoading">
-      <div class="p-col-3 p-md-6 p-lg-4 p-sm-12 p-xl-3"
-           v-for="n in 8"
-           :key="n">
+    <div v-if="subjectsLoading" class="p-grid">
+      <div v-for="n in 8"
+           :key="n"
+           class="p-col-3 p-md-6 p-lg-4 p-sm-12 p-xl-3">
         <LoadingCard></LoadingCard>
       </div>
     </div>
 
-    <div class="p-grid" v-else>
+    <div v-else class="p-grid">
       <h2 v-if="isEmpty() && !subjectsLoading">Lista przedmiotów jest pusta. Utwórz nowy przedmiot.</h2>
-      <div class="p-col-3 p-md-6 p-lg-4 p-sm-12 p-xl-3"
-           v-for="subject in subjects"
-           v-bind:key="subject._id">
+      <div v-for="subject in subjects"
+           v-bind:key="subject._id"
+           class="p-col-3 p-md-6 p-lg-4 p-sm-12 p-xl-3">
         <SubjectCard v-bind:subject="subject"></SubjectCard>
       </div>
     </div>

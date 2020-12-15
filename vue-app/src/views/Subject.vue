@@ -2,8 +2,8 @@
   <main-layout>
     <div class="page-header">
       <h1 class="page-header-h">
-        <span v-if="!loadingSubject" >Przedmiot: {{ subject.name }}</span>
-        <Skeleton class="skeleton-header" v-else></Skeleton>
+        <span v-if="!loadingSubject">Przedmiot: {{ subject.name }}</span>
+        <Skeleton v-else class="skeleton-header"></Skeleton>
       </h1>
     </div>
 
@@ -87,7 +87,7 @@ export default {
       getSubjectById: "subject/getSubjectById",
     }),
 
-    isDataLoading(){
+    isDataLoading() {
       return this.loadingSubject && this.loadingStudents
     }
   },

@@ -1,13 +1,13 @@
 <template>
-  <DataTable v-bind:value="users"
+  <DataTable class="p-datatable-striped p-datatable-lg"
+             currentPageReportTemplate="Wyniki od {first} do {last} z {totalRecords}"
+             paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
              v-bind:filters="filters"
+             v-bind:loading="isLoaded()"
              v-bind:paginator="true"
              v-bind:rows="10"
-             paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
              v-bind:rowsPerPageOptions="[10,20,50]"
-             currentPageReportTemplate="Wyniki od {first} do {last} z {totalRecords}"
-             class="p-datatable-striped p-datatable-lg"
-             v-bind:loading="isLoaded()">
+             v-bind:value="users">
     <template #header>
       <div class="table-header">
               <span class="p-input-icon-left">
@@ -18,26 +18,26 @@
     </template>
     <Column field="_id" header="ID">
       <template #filter>
-        <InputText type="text" v-model="filters['_id']" class="p-column-filter width-100"
-                   placeholder="Wyszukaj po ID"/>
+        <InputText v-model="filters['_id']" class="p-column-filter width-100" placeholder="Wyszukaj po ID"
+                   type="text"/>
       </template>
     </Column>
     <Column field="name" header="Nazwa" v-bind:sortable="true">
       <template #filter>
-        <InputText type="text" v-model="filters['name']" class="p-column-filter width-100"
-                   placeholder="Wyszukaj po nazwie"/>
+        <InputText v-model="filters['name']" class="p-column-filter width-100" placeholder="Wyszukaj po nazwie"
+                   type="text"/>
       </template>
     </Column>
     <Column field="email" header="Email" v-bind:sortable="true">
       <template #filter>
-        <InputText type="text" v-model="filters['email']" class="p-column-filter width-100"
-                   placeholder="Wyszukaj po adresie email"/>
+        <InputText v-model="filters['email']" class="p-column-filter width-100" placeholder="Wyszukaj po adresie email"
+                   type="text"/>
       </template>
     </Column>
     <Column field="role" header="Uprawnienia" v-bind:sortable="true">
       <template #filter>
-        <InputText type="text" v-model="filters['role']" class="p-column-filter width-100"
-                   placeholder="Wyszukaj po uprawnieniach"/>
+        <InputText v-model="filters['role']" class="p-column-filter width-100" placeholder="Wyszukaj po uprawnieniach"
+                   type="text"/>
       </template>
     </Column>
   </DataTable>
@@ -51,7 +51,7 @@ import InputText from "primevue/components/inputtext/InputText";
 export default {
   name: "UsersTable",
 
-  props:{
+  props: {
     users: {required: true}
   },
 
@@ -68,8 +68,8 @@ export default {
     }
   },
 
-  methods:{
-    isLoaded(){
+  methods: {
+    isLoaded() {
       return this.users.length === 0;
     }
   },

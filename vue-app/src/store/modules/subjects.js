@@ -16,7 +16,7 @@ const actions = {
         })
     },
 
-    async createNewSubject({commit}, subject){
+    async createNewSubject({commit}, subject) {
         await postSubject(subject)
             .then(result => {
                 const newDocument = result.doc
@@ -30,7 +30,7 @@ const mutations = {
         state.all = subjects.sort((x, y) => Number(y.active) - Number(x.active))
     },
 
-    pushSubject(state, subject){
+    pushSubject(state, subject) {
         state.all.push(subject)
     }
 }

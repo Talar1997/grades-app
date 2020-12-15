@@ -17,8 +17,8 @@ export default {
 </script>
 
 <style scoped>
-  .layout-footer{
-    margin-top: 15px;
-    text-align: center;
-  }
+.layout-footer {
+  margin-top: 15px;
+  text-align: center;
+}
 </style>

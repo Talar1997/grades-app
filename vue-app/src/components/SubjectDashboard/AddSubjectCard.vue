@@ -2,8 +2,8 @@
   <div>
     <Card class="grades-card-add"
           v-on:click="openNew()"
-          v-on:mouseover="isHovering = true"
-          v-on:mouseout="isHovering = false">
+          v-on:mouseout="isHovering = false"
+          v-on:mouseover="isHovering = true">
       <template #content>
         <div class="add-wrapper">
           <div class="icon-wrapper">

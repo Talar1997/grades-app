@@ -4,16 +4,16 @@
       <div class="header-replace"></div>
     </template>
     <template #title>
-      <Skeleton />
+      <Skeleton/>
     </template>
     <template #subtitle>
-      <Skeleton />
+      <Skeleton/>
     </template>
     <template #content>
-      <Skeleton />
+      <Skeleton/>
     </template>
     <template #footer>
-      <Button icon="pi pi-arrow-right" class="p-button-text p-button-primary float-right" />
+      <Button class="p-button-text p-button-primary float-right" icon="pi pi-arrow-right"/>
       <div class="clear-both"></div>
     </template>
   </Card>

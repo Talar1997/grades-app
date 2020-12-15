@@ -1,13 +1,13 @@
 <template>
   <div>
     <EmptyTab v-if="students.length === 0"
-              title="Brak danych!"
-              message="Brak studentów przypisanych do przedmiotu. Dodaj ich w zakładce 'Ustawienia'">
+              message="Brak studentów przypisanych do przedmiotu. Dodaj ich w zakładce 'Ustawienia'"
+              title="Brak danych!">
     </EmptyTab>
     <ul v-else>
       <li v-for="student in students"
           :key="student._id">
-        {{student.name}}
+        {{ student.name }}
       </li>
     </ul>
   </div>

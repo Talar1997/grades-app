@@ -35,7 +35,7 @@ const actions = {
         })
     },
 
-    async updateOne({commit}, student){
+    async updateOne({commit}, student) {
         await patchStudent(student._id, student).then(result => {
             commit('updateOneStudent', result)
         })
@@ -56,12 +56,12 @@ const mutations = {
         state.studentsFromSubject.push(student)
     },
 
-    updateOneStudent(state, student){
+    updateOneStudent(state, student) {
         let updateIndex = state.studentsFromSubject.map(student => student._id).indexOf(student._id)
         state.studentsFromSubject[updateIndex] = student
     },
 
-    removeOneFromSubject(state, id){
+    removeOneFromSubject(state, id) {
         let removeIndex = state.studentsFromSubject.map(student => student._id).indexOf(id)
         state.studentsFromSubject.splice(removeIndex, 1)
     }

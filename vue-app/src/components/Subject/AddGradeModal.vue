@@ -1,38 +1,43 @@
 <template>
   <Dialog v-model:visible="gradeAddDialog"
-          v-bind:style="{width: '350px'}"
+          class="p-fluid"
           header="Dodaj nową ocenę"
-          v-bind:modal="true" class="p-fluid">
+          v-bind:modal="true" v-bind:style="{width: '350px'}">
+
     <div class="p-field">
       <label for="student">Student</label>
       <InputText id="student" v-model="dialogStudent.name" disabled/>
     </div>
+
     <div class="p-field">
       <label for="category">Kategoria</label>
       <Dropdown id="category"
                 v-model="newGrade.category"
-                v-bind:options="categories"
-
-                v-bind:editable="true"/>
-      <small class="p-invalid" v-if="submitted && !newGrade.category">Wprowadzenie kategorii jest wymagane</small>
+                v-bind:editable="true"
+                v-bind:options="categories"/>
+      <small v-if="submitted && !newGrade.category" class="p-invalid">Wprowadzenie kategorii jest wymagane</small>
     </div>
+
     <div class="p-field">
       <label for="grade">Ocena</label>
-      <SelectButton id="grade" v-model="newGrade.grade" v-bind:options="grades" required="true"/>
-      <small class="p-invalid" v-if="submitted && !newGrade.grade">Wprowadzenie oceny jest wymagane</small>
+      <SelectButton id="grade" v-model="newGrade.grade" required="true" v-bind:options="grades"/>
+      <small v-if="submitted && !newGrade.grade" class="p-invalid">Wprowadzenie oceny jest wymagane</small>
     </div>
+
     <div class="p-field">
       <label for="severity">
         Waga:
         <Tag class="grade-tag" v-bind:severity="countSeverity(newGrade.severity)">{{ newGrade.severity }}</Tag>
       </label>
-      <Slider id="severity" v-model="newGrade.severity" v-bind:step="5" required="true"/>
-      <small class="p-invalid" v-if="submitted && !newGrade.severity">Wprowadzenie wagi jest wymagane</small>
+      <Slider id="severity" v-model="newGrade.severity" required="true" v-bind:step="5"/>
+      <small v-if="submitted && !newGrade.severity" class="p-invalid">Wprowadzenie wagi jest wymagane</small>
     </div>
+
     <template #footer>
-      <Button label="Anuluj" icon="pi pi-times" class="p-button-text p-button-secondary" v-on:click="hideDialog"/>
-      <Button label="Zapisz" icon="pi pi-check" class="p-button" v-on:click="postGrade"/>
+      <Button class="p-button-text p-button-secondary" icon="pi pi-times" label="Anuluj" v-on:click="hideDialog"/>
+      <Button class="p-button" icon="pi pi-check" label="Zapisz" v-on:click="postGrade"/>
     </template>
+
   </Dialog>
 </template>
 
@@ -126,7 +131,6 @@ export default {
   },
 
   mounted() {
-    //fixme: dlaczego nie działa?
     this.emitter.on("add-grade-modal", student => {
       this.dialogStudent = student;
       this.gradeAddDialog = true;

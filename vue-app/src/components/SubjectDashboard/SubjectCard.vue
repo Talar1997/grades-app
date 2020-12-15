@@ -1,10 +1,10 @@
 <template>
   <router-link :to="{ name: 'Subject', params: { id: subject._id  }}" style="text-decoration: none">
     <BlockUI v-bind:blocked="!subject.active"
-             v-on:mouseover="isHovering = true"
-             v-on:mouseout="isHovering = false">
-      <Card class="grades-card"
-            v-bind:key="subject._id"
+             v-on:mouseout="isHovering = false"
+             v-on:mouseover="isHovering = true">
+      <Card v-bind:key="subject._id"
+            class="grades-card"
             v-bind:class="{'p-shadow-3': isHovering}">
         <template #header>
         </template>
@@ -23,7 +23,7 @@
         </template>
         <template #footer>
           <router-link :to="{ name: 'Subject', params: { id: subject._id  }}" class="float-right">
-            <Button icon="pi pi-arrow-right" class="p-button-text p-button-primary"/>
+            <Button class="p-button-text p-button-primary" icon="pi pi-arrow-right"/>
           </router-link>
           <div class="clear-both"></div>
         </template>

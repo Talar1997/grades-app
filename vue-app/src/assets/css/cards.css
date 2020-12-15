@@ -44,11 +44,11 @@
     float: right;
 }
 
-.clear-both{
+.clear-both {
     clear: both;
 }
 
-.rotate-icon{
+.rotate-icon {
     transition: all .35s ease;
     transform: rotate(90deg);
 }

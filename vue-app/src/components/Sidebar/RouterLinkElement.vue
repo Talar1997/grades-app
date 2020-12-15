@@ -79,12 +79,12 @@ export default {
   transition: background-color .15s ease;
 }
 
-.router-icon{
+.router-icon {
   padding: 6px;
   font-size: 1.3rem;
 }
 
-.router-name{
+.router-name {
   position: relative;
   bottom: 3px;
 }

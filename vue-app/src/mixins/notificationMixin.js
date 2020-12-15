@@ -1,6 +1,6 @@
 export const notificationMixin = {
     methods: {
-        confirmAction(event, acceptAction, rejectAction){
+        confirmAction(event, acceptAction, rejectAction) {
             this.$confirm.require({
                 target: event.currentTarget,
                 message: 'Czy na pewno chcesz wykonać daną akcję?',
@@ -8,10 +8,10 @@ export const notificationMixin = {
                 rejectLabel: "Nie",
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    if(typeof acceptAction === "function") acceptAction();
+                    if (typeof acceptAction === "function") acceptAction();
                 },
                 reject: () => {
-                    if(typeof rejectAction === "function") rejectAction();
+                    if (typeof rejectAction === "function") rejectAction();
                 }
             });
         },
@@ -32,24 +32,25 @@ export const notificationMixin = {
             });
         },
 
-        pushSuccess(title, details, severity='success'){
+        pushSuccess(title, details, severity = 'success') {
             this.pushNotification(title, details, severity)
         },
 
-        pushError(title, details, severity='error'){
+        pushError(title, details, severity = 'error') {
             this.pushNotification(title, details, severity)
         },
 
-        pushInfo(title, details, severity='info'){
+        pushInfo(title, details, severity = 'info') {
             this.pushNotification(title, details, severity)
         },
 
-        pushNotification(title, details, severity, life = 5000){
+        pushNotification(title, details, severity, life = 5000) {
             this.$toast.add({
                 severity: severity,
                 summary: title,
                 detail: details,
-                life: life});
+                life: life
+            });
         }
     },
 }

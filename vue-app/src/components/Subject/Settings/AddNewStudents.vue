@@ -2,17 +2,17 @@
   <div class="p-grid p-fluid">
     <div class="p-col-12 p-md-12">
       <div class="p-inputgroup">
-        <Chips v-model="newStudents" separator=","
-               placeholder="Wprowadź nowych studentów oddzielając ich znakiem ',' bądź wciskając enter"></Chips>
+        <Chips v-model="newStudents" placeholder="Wprowadź nowych studentów oddzielając ich znakiem ',' bądź wciskając enter"
+               separator=","></Chips>
       </div>
     </div>
     <div class="p-col-12 p-md-4">
       <div class="p-inputgroup">
-        <Button v-on:click="confirmAction($event, addStudents)"
+        <Button id="addNewStudentsButton"
+                class="p-button-outlined"
                 icon="pi pi-check"
                 label="Dodaj"
-                class="p-button-outlined"
-                id="addNewStudentsButton">
+                v-on:click="confirmAction($event, addStudents)">
         </Button>
       </div>
     </div>
@@ -36,7 +36,7 @@ export default {
     }
   },
 
-  components:{
+  components: {
     Button,
     Chips,
     ConfirmPopup

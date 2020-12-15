@@ -1,6 +1,6 @@
 <template>
   <main-layout>
-    <EmptyTab title="Błąd 404" message="Zasób o podanym ID nie istnieje."></EmptyTab>
+    <EmptyTab message="Zasób o podanym ID nie istnieje." title="Błąd 404"></EmptyTab>
   </main-layout>
 </template>
 

@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter } from "vue-router";
+import {createRouter, createWebHistory} from "vue-router";
 
 import Dashboard from "@/views/Dashboard.vue";
 import AllSubjects from "@/views/AllSubjects.vue";
@@ -45,15 +45,15 @@ const routes = [
             requireAuth: true,
         }
     },
-/*    {
-        path: "/students",
-        name: "Students",
-        component: Students,
-        meta: {
-            title: 'Students - GradesApp',
-            requireAuth: true,
-        }
-    },*/
+    /*    {
+            path: "/students",
+            name: "Students",
+            component: Students,
+            meta: {
+                title: 'Students - GradesApp',
+                requireAuth: true,
+            }
+        },*/
     {
         path: "/users",
         name: "Users",

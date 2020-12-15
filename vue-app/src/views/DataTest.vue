@@ -4,7 +4,7 @@
       <li
           v-for="subject in subjects"
           :key="subject._id">
-        {{subject.name}} - {{subject.owner.email}}
+        {{ subject.name }} - {{ subject.owner.email }}
         <button v-on:click="showData(subject)">Details</button>
       </li>
     </ul>
@@ -12,8 +12,7 @@
     <Calendar v-model="test"></Calendar>
 
 
-
-    <Button v-on:click="deleteTest()" icon="pi pi-check" label="Confirm"></Button>
+    <Button icon="pi pi-check" label="Confirm" v-on:click="deleteTest()"></Button>
     <Toast position="bottom-right"></Toast>
     <ConfirmPopup></ConfirmPopup>
   </main-layout>
@@ -30,7 +29,7 @@ import {notificationMixin} from "@/mixins/notificationMixin";
 
 export default {
   name: 'DataTest',
-  components:{
+  components: {
     MainLayout,
     Button,
     Calendar,
@@ -38,12 +37,12 @@ export default {
     Toast
   },
 
-  mixins:[
+  mixins: [
     notificationMixin
   ],
 
-  data(){
-    return{
+  data() {
+    return {
       display: true,
       test: null,
     }
@@ -68,7 +67,7 @@ export default {
       'getAllSubjects'
     ]),
 
-    showData(subject){
+    showData(subject) {
       alert(subject.name);
     },
 
@@ -90,14 +89,14 @@ export default {
     },
 
   },
-  created () {
-    this.getAllSubjects().then(()=>{
+  created() {
+    this.getAllSubjects().then(() => {
       this.subjects.forEach(el => console.log(el.name + el.active))
     })
   },
 
   mounted() {
-    this.$toast.add({severity:'success', summary: 'Success Message', detail:'Order submitted', life: 3000});
+    this.$toast.add({severity: 'success', summary: 'Success Message', detail: 'Order submitted', life: 3000});
   }
 
 }

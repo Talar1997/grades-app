@@ -18,15 +18,15 @@
                   <template #content>
                     <div class="p-field">
                       <label for="email">Email address</label>
-                      <InputText id="email" type="text" v-model="input.email"/>
+                      <InputText id="email" v-model="input.email" type="text"/>
                     </div>
                     <div class="p-field">
                       <label for="password">Password</label>
-                      <Password v-bind:feedback="false" id="password" v-model="input.password"/>
+                      <Password id="password" v-model="input.password" v-bind:feedback="false"/>
                     </div>
                   </template>
                   <template #footer>
-                    <Button icon="pi pi-check" label="Login" id="submitLogin" type="submit"/>
+                    <Button id="submitLogin" icon="pi pi-check" label="Login" type="submit"/>
                   </template>
                 </Card>
               </form>

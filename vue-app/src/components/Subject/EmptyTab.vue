@@ -17,19 +17,19 @@ export default {
 </script>
 
 <style scoped>
-  .empty-tab{
-    margin: 0 auto;
-    width: 450px;
-    text-align: center;
-    padding: 25px;
-    color: rgb(150,150,150)
-  }
+.empty-tab {
+  margin: 0 auto;
+  width: 450px;
+  text-align: center;
+  padding: 25px;
+  color: rgb(150, 150, 150)
+}
 
-  .empty-tab h2, .empty-tab h3{
-    color: rgb(150,150,150)
-  }
+.empty-tab h2, .empty-tab h3 {
+  color: rgb(150, 150, 150)
+}
 
-  .empty-tab-icon{
-    font-size: 10rem;
-  }
+.empty-tab-icon {
+  font-size: 10rem;
+}
 </style>

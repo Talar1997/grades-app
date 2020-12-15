@@ -1,12 +1,12 @@
 <template>
-  <OrganizationChart v-bind:value="chartData"
-                     v-bind:collapsible="true"
+  <OrganizationChart v-model:selectionKeys="selection"
                      class="company"
                      selectionMode="single"
-                     v-model:selectionKeys="selection">
+                     v-bind:collapsible="true"
+                     v-bind:value="chartData">
     <template #person="slotProps">
       <div class="node-content">
-        <Avatar icon="pi pi-user" class="p-mr-2" shape="circle"/>
+        <Avatar class="p-mr-2" icon="pi pi-user" shape="circle"/>
         <div>{{ slotProps.node.data.name }}</div>
       </div>
     </template>

@@ -1,34 +1,34 @@
 <template>
   <Dialog v-model:visible="subjectDialog"
+          class="p-fluid add-subject-modal"
           header="Dodaj nowy przedmiot"
-          v-bind:modal="true"
-          class="p-fluid add-subject-modal">
+          v-bind:modal="true">
     <div class="p-field">
       <label for="name">Nazwa</label>
-      <InputText id="name" v-model.trim="subject.name" required="true" autofocus
+      <InputText id="name" v-model.trim="subject.name" autofocus required="true"
                  v-bind:class="{'p-invalid': submitted && !subject.name}"/>
-      <small class="p-invalid" v-if="submitted && !subject.name">Nazwa przedmiotu jest wymagana</small>
+      <small v-if="submitted && !subject.name" class="p-invalid">Nazwa przedmiotu jest wymagana</small>
     </div>
     <div class="p-field">
       <label for="name">Data pierwszych zajęć</label>
       <Calendar id="date"
                 v-model="subject.date"
                 v-bind:inline="true"/>
-      <small class="p-invalid" v-if="submitted && !subject.date">Data jest wymagana</small>
+      <small v-if="submitted && !subject.date" class="p-invalid">Data jest wymagana</small>
     </div>
     <div class="p-field">
       <label for="name">Godzina zajęć</label>
-            <Calendar id="time"
-                      v-model="subject.hours"
-                      v-bind:showTime="true"
-                      v-bind:timeOnly="true"
-                      v-bind:inline="true"/>
-      <small class="p-invalid" v-if="submitted && !subject.hours">Godzina jest wymagana</small>
+      <Calendar id="time"
+                v-model="subject.hours"
+                v-bind:inline="true"
+                v-bind:showTime="true"
+                v-bind:timeOnly="true"/>
+      <small v-if="submitted && !subject.hours" class="p-invalid">Godzina jest wymagana</small>
     </div>
 
     <template #footer>
-      <Button label="Anuluj" icon="pi pi-times" class="p-button-text p-button-secondary" v-on:click="hideDialog"/>
-      <Button label="Zapisz" icon="pi pi-check" class="p-button" v-on:click="saveSubject"/>
+      <Button class="p-button-text p-button-secondary" icon="pi pi-times" label="Anuluj" v-on:click="hideDialog"/>
+      <Button class="p-button" icon="pi pi-check" label="Zapisz" v-on:click="saveSubject"/>
     </template>
   </Dialog>
 </template>
@@ -81,7 +81,7 @@ export default {
 
       this.createNewSubject(this.subject)
           .then(() => {
-            this.pushSuccess("Sukces","Utworzono nowy przedmiot");
+            this.pushSuccess("Sukces", "Utworzono nowy przedmiot");
             this.subjectDialog = false;
             this.subject = {};
           })

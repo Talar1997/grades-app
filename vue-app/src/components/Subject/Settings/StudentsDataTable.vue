@@ -1,31 +1,31 @@
 <template>
   <div class="table-wrapper">
-    <DataTable v-bind:value="students" editMode="row" dataKey="_id" id="studentsTable" columnResizeMode="expand">
+    <DataTable id="studentsTable" columnResizeMode="expand" dataKey="_id" editMode="row" v-bind:value="students">
       <Column field="name" header="Imie i nazwisko"></Column>
-      <Column headerStyle="width:8rem" bodyStyle="text-align:center">
+      <Column bodyStyle="text-align:center" headerStyle="width:8rem">
         <template #body="slotProps">
-          <Button icon="pi pi-pencil" class="p-button-rounded p-button-primary p-button-text"
+          <Button class="p-button-rounded p-button-primary p-button-text" icon="pi pi-pencil"
                   v-on:click="editStudent(slotProps.data)"/>
-          <Button icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text"
+          <Button class="p-button-rounded p-button-danger p-button-text" icon="pi pi-trash"
                   v-on:click="confirmActionWithArg($event, slotProps.data, deleteStudent)"/>
         </template>
       </Column>
     </DataTable>
     <ConfirmPopup></ConfirmPopup>
 
-<!--    TODO: przenieść do osobnego komponentu-->
+    <!--    TODO: przenieść do osobnego komponentu-->
     <Dialog v-model:visible="studentEditDialog"
-            v-bind:style="{width: '450px'}"
+            class="p-fluid"
             header="Edytuj dane"
-            v-bind:modal="true" class="p-fluid">
+            v-bind:modal="true" v-bind:style="{width: '450px'}">
       <div class="p-field">
         <label for="name">Nazwa</label>
-        <InputText id="name" v-model="studentToUpdate.name" required="true" autofocus/>
-        <small class="p-invalid" v-if="submitted && !studentToUpdate.name">Nazwa przedmiotu jest wymagana</small>
+        <InputText id="name" v-model="studentToUpdate.name" autofocus required="true"/>
+        <small v-if="submitted && !studentToUpdate.name" class="p-invalid">Nazwa przedmiotu jest wymagana</small>
       </div>
       <template #footer>
-        <Button label="Anuluj" icon="pi pi-times" class="p-button-text p-button-secondary" v-on:click="hideDialog"/>
-        <Button label="Zapisz" icon="pi pi-check" class="p-button" v-on:click="updateStudent"/>
+        <Button class="p-button-text p-button-secondary" icon="pi pi-times" label="Anuluj" v-on:click="hideDialog"/>
+        <Button class="p-button" icon="pi pi-check" label="Zapisz" v-on:click="updateStudent"/>
       </template>
     </Dialog>
   </div>

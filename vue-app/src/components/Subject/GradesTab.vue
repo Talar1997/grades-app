@@ -1,40 +1,44 @@
 <template>
   <div>
     <EmptyTab v-if="students.length === 0"
-              title="Brak danych!"
-              message="Brak studentów przypisanych do przedmiotu. Dodaj ich w zakładce 'Ustawienia'">
+              message="Brak studentów przypisanych do przedmiotu. Dodaj ich w zakładce 'Ustawienia'"
+              title="Brak danych!">
     </EmptyTab>
 
     <div v-else>
-      <DataTable v-bind:value="students" editMode="row" dataKey="_id" id="studentsTable" columnResizeMode="expand">
-        <Column field="name" header="Imie i nazwisko" headerStyle="width:15%">
-        </Column>
+      <DataTable id="studentsTable" columnResizeMode="expand" dataKey="_id" editMode="row" v-bind:value="students">
+        <Column field="name" header="Imie i nazwisko" headerStyle="width:15%"></Column>
+
         <Column field="grades" header="Oceny">
           <template #body="slotProps">
           <span v-for="grade in slotProps.data.grades" v-bind:key="grade._id">
-            <Tag class="grade-tag" v-bind:severity="countSeverity(grade.severity)"
-                 v-on:click="editGrade(slotProps.data, grade)"
-                 v-tooltip.top="`${grade.category} (waga: ${grade.severity})`">
+              <Tag v-tooltip.top="`${grade.category} (waga: ${grade.severity})`" class="grade-tag pointer"
+                   v-bind:severity="countSeverity(grade.severity)"
+                   v-on:click="editGradeModal(slotProps.data, grade)">
               {{ grade.grade }}
             </Tag>
           </span>
           </template>
         </Column>
-        <Column header="Średnia" headerStyle="width:8rem">
+
+        <Column header="Średnia" headerStyle="width:8rem" bodyStyle="text-align:center">
           <template #body="slotProps">
-            <span v-on:dblclick="addGradeModal(slotProps.data)">0</span>
+            <FinalGrade v-bind:student="slotProps.data"></FinalGrade>
           </template>
         </Column>
-        <Column headerStyle="width:4rem" bodyStyle="text-align:center">
+
+        <Column bodyStyle="text-align:center" headerStyle="width:4rem">
           <template #body="slotProps">
-            <Button icon="pi pi-plus" class="p-button-rounded p-button-primary p-button-text"
+            <Button class="p-button-rounded p-button-primary p-button-text" icon="pi pi-plus"
                     v-on:click="addGradeModal(slotProps.data)"/>
           </template>
         </Column>
+
       </DataTable>
     </div>
 
     <AddGradeModal></AddGradeModal>
+    <EditGradeModal></EditGradeModal>
   </div>
 </template>
 
@@ -48,11 +52,15 @@ import Tooltip from 'primevue/tooltip';
 import {notificationMixin} from "@/mixins/notificationMixin";
 import {gradesMixin} from "@/mixins/gradesMixin";
 import AddGradeModal from "@/components/Subject/AddGradeModal";
+import EditGradeModal from "@/components/Subject/EditGradeModal";
+import FinalGrade from "@/components/Subject/FinalGrade";
 
 export default {
   name: "GradesTab",
 
   components: {
+    FinalGrade,
+    EditGradeModal,
     AddGradeModal,
     EmptyTab,
     DataTable,
@@ -86,20 +94,13 @@ export default {
       this.emitter.emit('add-grade-modal', student)
     },
 
-    editGrade(student, grade) {
-      console.log(student)
-      console.log(grade)
+    editGradeModal(student, grade) {
+      this.emitter.emit('edit-grade-modal', {student, grade})
     },
   }
 }
 </script>
 
 <style scoped>
-.grade-tag {
-  font-size: 16px;
-  height: 25px;
-  width: 25px;
-  cursor: pointer;
-  margin-right: 5px;
-}
+@import "../../assets/css/grades.css";
 </style>

@@ -1,7 +1,7 @@
 const {mapActions} = require("vuex");
 export const subjectsMixin = {
-    data(){
-        return{
+    data() {
+        return {
             subjects: null,
             subjectsLoading: true,
         }

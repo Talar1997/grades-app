@@ -19,16 +19,16 @@
     margin: 0 auto !important;
 }
 
-.card-image-wrapper{
+.card-image-wrapper {
     margin: 0 auto !important;
     width: 9rem;
 }
 
-.p-grid{
+.p-grid {
     padding: 0 !important;
     margin: 0 !important;
 }
 
-.login-card > .p-card-header{
+.login-card > .p-card-header {
     background: none;
 }

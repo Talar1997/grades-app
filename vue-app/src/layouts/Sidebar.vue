@@ -4,11 +4,11 @@
       <div class="sidebar-sign">
         <p class="no-margin no-padding">Grades App</p>
       </div>
-      <RouterLinkElement id="dashboard" name="Twoje przedmioty" icon="pi-list"></RouterLinkElement>
-      <RouterLinkElement id="subjects" name="Wszystkie przedmioty" icon="pi-users"></RouterLinkElement>
-      <RouterLinkElement id="users" name="Użytkownicy" icon="pi-sitemap"></RouterLinkElement>
-      <RouterLinkElement id="test" name="Panel testowy" icon="pi-palette"></RouterLinkElement>
-      <RouterLinkElement v-on:click="logout" id="login" name="Wyloguj" icon="pi-arrow-circle-left"></RouterLinkElement>
+      <RouterLinkElement id="dashboard" icon="pi-list" name="Twoje przedmioty"></RouterLinkElement>
+      <RouterLinkElement id="subjects" icon="pi-users" name="Wszystkie przedmioty"></RouterLinkElement>
+      <RouterLinkElement id="users" icon="pi-sitemap" name="Użytkownicy"></RouterLinkElement>
+      <RouterLinkElement id="test" icon="pi-palette" name="Panel testowy"></RouterLinkElement>
+      <RouterLinkElement id="login" icon="pi-arrow-circle-left" name="Wyloguj" v-on:click="logout"></RouterLinkElement>
       <AppFooter></AppFooter>
     </ul>
 
@@ -41,7 +41,7 @@ export default {
 <style scoped>
 @import '../assets/css/global.css';
 
-.sidebar-sign{
+.sidebar-sign {
   height: 50px;
   background-color: #38a476;
   color: white;
@@ -49,7 +49,7 @@ export default {
   text-align: center;
 }
 
-.sidebar-sign p{
+.sidebar-sign p {
   padding: 15px !important;
   vertical-align: center;
   text-transform: uppercase;
@@ -61,9 +61,9 @@ export default {
   background-color: #f4f4f4;
   margin: 0 !important;
   padding: 0 !important;
-  -webkit-box-shadow: -6px 0px 21px -3px rgba(0,0,0,0.56);
-  -moz-box-shadow: -6px 0px 21px -3px rgba(0,0,0,0.56);
-  box-shadow: -6px 0px 21px -3px rgba(0,0,0,0.56);
+  -webkit-box-shadow: -6px 0px 21px -3px rgba(0, 0, 0, 0.56);
+  -moz-box-shadow: -6px 0px 21px -3px rgba(0, 0, 0, 0.56);
+  box-shadow: -6px 0px 21px -3px rgba(0, 0, 0, 0.56);
 }
 
 .sidebar-ul {
@@ -74,7 +74,6 @@ export default {
   height: 100%;
   overflow: auto;
 }
-
 
 
 </style>

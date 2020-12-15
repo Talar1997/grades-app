@@ -7,7 +7,7 @@ export function routerMiddleware(to, from, next) {
 
     const isTokenValid = userValidator.validateTokenTimestamp()
 
-    if(isLoggedIn && !isTokenValid){
+    if (isLoggedIn && !isTokenValid) {
         userService.logout();
         return next('/login')
     }

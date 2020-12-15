@@ -5,7 +5,7 @@
         <span class="p-inputgroup-addon">
             <i class="pi pi-user"></i>
         </span>
-        <InputText placeholder="Nazwa przedmiotu" v-model="updatedSubject.name"/>
+        <InputText v-model="updatedSubject.name" placeholder="Nazwa przedmiotu"/>
       </div>
     </div>
 
@@ -25,28 +25,28 @@
 
         <Calendar id="time"
                   v-model="updatedSubject.hours"
+                  v-bind:inline="false"
                   v-bind:showTime="true"
-                  v-bind:timeOnly="true"
-                  v-bind:inline="false"/>
+                  v-bind:timeOnly="true"/>
       </div>
     </div>
 
     <div class="p-col-12 p-md-3">
       <div class="p-inputgroup">
 
-        <SelectButton v-bind:options="selectOptions" optionLabel="name" optionValue="value"
-                      v-model="updatedSubject.active" style="width: 100%">
+        <SelectButton v-model="updatedSubject.active" optionLabel="name" optionValue="value"
+                      style="width: 100%" v-bind:options="selectOptions">
         </SelectButton>
       </div>
     </div>
 
     <div class="p-col-12 p-md-4">
       <div class="p-inputgroup">
-        <Button v-on:click="confirmAction($event, updateSubject)" icon="pi pi-check" label="Zapisz zmiany"
-                class="p-button-outlined"></Button>
-        <Button v-on:click="confirmAction($event, deleteSubject)" icon="pi pi-times"
-                class="p-button-danger p-ml-2 p-button-outlined"
-                label="Usuń przedmiot"></Button>
+        <Button class="p-button-outlined" icon="pi pi-check" label="Zapisz zmiany"
+                v-on:click="confirmAction($event, updateSubject)"></Button>
+        <Button class="p-button-danger p-ml-2 p-button-outlined" icon="pi pi-times"
+                label="Usuń przedmiot"
+                v-on:click="confirmAction($event, deleteSubject)"></Button>
       </div>
     </div>
     <ConfirmPopup></ConfirmPopup>
@@ -82,8 +82,8 @@ export default {
     notificationMixin
   ],
 
-  data(){
-    return{
+  data() {
+    return {
       updatedSubject: {},
       selectOptions: [
         {name: 'Aktywny', value: true},
@@ -92,7 +92,7 @@ export default {
     }
   },
 
-  methods:{
+  methods: {
     ...mapActions({
       removeSubject: "subject/removeSubject",
       updateStoreSubject: 'subject/updateSubject',

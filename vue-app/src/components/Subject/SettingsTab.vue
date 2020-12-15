@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>Ustawienia przedmiotu</h3>
-    <SubjectEditForm v-bind:subject="subject" v-bind:students="students"></SubjectEditForm>
+    <SubjectEditForm v-bind:students="students" v-bind:subject="subject"></SubjectEditForm>
     <Divider/>
 
     <h3>Dodaj nowych studentów</h3>
@@ -10,7 +10,7 @@
     <Divider/>
     <h3>Lista studentów</h3>
     <div v-if="students.length === 0" class="p-p-2">Brak studentów przypisanych do przedmiotu</div>
-    <StudentsDataTable v-else v-bind:subject="subject" v-bind:students="students"></StudentsDataTable>
+    <StudentsDataTable v-else v-bind:students="students" v-bind:subject="subject"></StudentsDataTable>
 
   </div>
 </template>
