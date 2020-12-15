@@ -1,12 +1,8 @@
 <template>
   <div class="table-wrapper">
     <DataTable v-bind:value="students" editMode="row" dataKey="_id" id="studentsTable" columnResizeMode="expand">
-      <Column field="name" header="Imie i nazwisko">
-        <template #editor="slotProps">
-          <InputText v-bind:value="slotProps.data[slotProps.column.props.field]"/>
-        </template>
-      </Column>
-      <Column headerStyle="width:8rem" bodyStyle="text-align:center" header="Akcje">
+      <Column field="name" header="Imie i nazwisko"></Column>
+      <Column headerStyle="width:8rem" bodyStyle="text-align:center">
         <template #body="slotProps">
           <Button icon="pi pi-pencil" class="p-button-rounded p-button-primary p-button-text"
                   v-on:click="editStudent(slotProps.data)"/>
@@ -16,6 +12,8 @@
       </Column>
     </DataTable>
     <ConfirmPopup></ConfirmPopup>
+
+<!--    TODO: przenieść do osobnego komponentu-->
     <Dialog v-model:visible="studentEditDialog"
             v-bind:style="{width: '450px'}"
             header="Edytuj dane"
@@ -38,7 +36,7 @@ import InputText from "primevue/components/inputtext/InputText";
 import Button from "primevue/components/button/Button";
 import DataTable from "primevue/components/datatable/DataTable";
 import Column from "primevue/components/column/Column";
-import {notificationMixin} from "@/mixins/notoficationMixin";
+import {notificationMixin} from "@/mixins/notificationMixin";
 import ConfirmPopup from "primevue/components/confirmpopup/ConfirmPopup";
 import {mapActions} from "vuex";
 import Dialog from "primevue/components/dialog/Dialog";

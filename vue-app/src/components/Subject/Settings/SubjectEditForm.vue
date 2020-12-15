@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import {notificationMixin} from "@/mixins/notoficationMixin";
+import {notificationMixin} from "@/mixins/notificationMixin";
 import InputText from "primevue/components/inputtext/InputText";
 import Button from "primevue/components/button/Button";
 import SelectButton from "primevue/components/selectbutton/SelectButton";

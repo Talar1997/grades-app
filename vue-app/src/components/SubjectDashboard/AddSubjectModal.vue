@@ -39,7 +39,7 @@ import InputText from "primevue/components/inputtext/InputText";
 import Dialog from "primevue/components/dialog/Dialog";
 import Calendar from 'primevue/calendar';
 import {mapActions} from "vuex";
-import {notificationMixin} from "@/mixins/notoficationMixin";
+import {notificationMixin} from "@/mixins/notificationMixin";
 
 export default {
   name: "AddSubjectModal",

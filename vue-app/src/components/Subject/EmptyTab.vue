@@ -11,7 +11,7 @@ export default {
   name: "EmptyTab",
   props: {
     message: {required: true},
-    title: {required: true}
+    title: {required: true},
   }
 }
 </script>
@@ -20,7 +20,6 @@ export default {
   .empty-tab{
     margin: 0 auto;
     width: 450px;
-    //text-transform: uppercase;
     text-align: center;
     padding: 25px;
     color: rgb(150,150,150)

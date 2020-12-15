@@ -30,7 +30,8 @@
               <span>Ustawienia</span>
             </template>
             <SettingsTab v-bind:students="students"
-                         v-bind:subject="subject"></SettingsTab>
+                         v-bind:subject="subject">
+            </SettingsTab>
           </TabPanel>
         </TabView>
       </div>

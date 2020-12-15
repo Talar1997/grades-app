@@ -48,7 +48,7 @@ import Password from 'primevue/password';
 import InputText from 'primevue/inputtext';
 import Card from 'primevue/card';
 import Button from 'primevue/button';
-import {notificationMixin} from "@/mixins/notoficationMixin";
+import {notificationMixin} from "@/mixins/notificationMixin";
 
 export default {
   name: 'Login',

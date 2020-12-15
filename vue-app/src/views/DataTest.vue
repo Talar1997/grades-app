@@ -26,7 +26,7 @@ import Button from "primevue/components/button/Button";
 import Calendar from "primevue/components/calendar/Calendar";
 import ConfirmPopup from 'primevue/confirmpopup';
 import Toast from 'primevue/toast';
-import {notificationMixin} from "@/mixins/notoficationMixin";
+import {notificationMixin} from "@/mixins/notificationMixin";
 
 export default {
   name: 'DataTest',

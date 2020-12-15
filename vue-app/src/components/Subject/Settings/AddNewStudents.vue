@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import {notificationMixin} from "@/mixins/notoficationMixin";
+import {notificationMixin} from "@/mixins/notificationMixin";
 import {mapActions} from "vuex";
 import Chips from "primevue/components/chips/Chips";
 import Button from "primevue/components/button/Button";
