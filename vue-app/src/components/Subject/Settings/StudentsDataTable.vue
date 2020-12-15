@@ -1,22 +1,35 @@
 <template>
   <div class="table-wrapper">
-    <DataTable v-bind:value="students" editMode="row" dataKey="_id" v-model:editingRows="editingRows"
-               v-on:row-edit-init="onRowEditInit" v-on:row-edit-cancel="onRowEditCancel" id="studentsTable"
-               columnResizeMode="expand">
+    <DataTable v-bind:value="students" editMode="row" dataKey="_id" id="studentsTable" columnResizeMode="expand">
       <Column field="name" header="Imie i nazwisko">
         <template #editor="slotProps">
-          <InputText v-model="slotProps.data[slotProps.column.props.field]"/>
+          <InputText v-bind:value="slotProps.data[slotProps.column.props.field]"/>
         </template>
       </Column>
-      <Column v-bind:rowEditor="true" headerStyle="width:7rem" bodyStyle="text-align:center"></Column>
-      <Column headerStyle="width:5rem" bodyStyle="text-align:center">
+      <Column headerStyle="width:8rem" bodyStyle="text-align:center" header="Akcje">
         <template #body="slotProps">
+          <Button icon="pi pi-pencil" class="p-button-rounded p-button-primary p-button-text"
+                  v-on:click="editStudent(slotProps.data)"/>
           <Button icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text"
                   v-on:click="confirmActionWithArg($event, slotProps.data, deleteStudent)"/>
         </template>
       </Column>
     </DataTable>
     <ConfirmPopup></ConfirmPopup>
+    <Dialog v-model:visible="studentEditDialog"
+            v-bind:style="{width: '450px'}"
+            header="Edytuj dane"
+            v-bind:modal="true" class="p-fluid">
+      <div class="p-field">
+        <label for="name">Nazwa</label>
+        <InputText id="name" v-model="studentToUpdate.name" required="true" autofocus/>
+        <small class="p-invalid" v-if="submitted && !studentToUpdate.name">Nazwa przedmiotu jest wymagana</small>
+      </div>
+      <template #footer>
+        <Button label="Anuluj" icon="pi pi-times" class="p-button-text p-button-secondary" v-on:click="hideDialog"/>
+        <Button label="Zapisz" icon="pi pi-check" class="p-button" v-on:click="updateStudent"/>
+      </template>
+    </Dialog>
   </div>
 </template>
 
@@ -28,6 +41,7 @@ import Column from "primevue/components/column/Column";
 import {notificationMixin} from "@/mixins/notoficationMixin";
 import ConfirmPopup from "primevue/components/confirmpopup/ConfirmPopup";
 import {mapActions} from "vuex";
+import Dialog from "primevue/components/dialog/Dialog";
 
 export default {
   name: "StudentsDataTable",
@@ -37,7 +51,8 @@ export default {
     Button,
     DataTable,
     Column,
-    ConfirmPopup
+    ConfirmPopup,
+    Dialog
   },
 
   props: {
@@ -47,7 +62,9 @@ export default {
 
   data() {
     return {
-      editingRows: []
+      studentToUpdate: {},
+      studentEditDialog: false,
+      submitted: false,
     }
   },
 
@@ -57,21 +74,13 @@ export default {
 
   methods: {
     ...mapActions({
-      removeStudentFromSubject: 'students/removeStudent'
+      removeStudent: 'students/removeStudent',
+      updateOne: 'students/updateOne'
     }),
 
-    onRowEditInit(event) {
-      // this.originalRows[event.index] = {...this.products3[event.index]};
-      console.log(event)
-    },
-
-    onRowEditCancel(event) {
-      // this.products3[event.index] = this.originalRows[event.index];
-      console.log(event)
-    },
 
     deleteStudent(data) {
-      this.removeStudentFromSubject(data._id)
+      this.removeStudent(data._id)
           .then(() => {
             this.pushSuccess("Sukces", "Pomyślnie usunięto studenta z listy")
           })
@@ -80,21 +89,27 @@ export default {
           })
     },
 
-    confirmActionWithArg(event, data, acceptAction, rejectAction) {
-      this.$confirm.require({
-        target: event.currentTarget,
-        message: 'Czy na pewno chcesz wykonać daną akcję?',
-        acceptLabel: "Tak",
-        rejectLabel: "Nie",
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-          if (typeof acceptAction === "function") acceptAction(data);
-        },
-        reject: () => {
-          if (typeof rejectAction === "function") rejectAction();
-        }
-      });
+    editStudent(student) {
+      this.studentToUpdate._id = student._id;
+      this.studentToUpdate.name = student.name;
+      this.studentEditDialog = true;
     },
+
+    hideDialog() {
+      this.studentEditDialog = false;
+    },
+
+    updateStudent() {
+      this.submitted = true
+      this.updateOne(this.studentToUpdate)
+          .then(() => {
+            this.pushSuccess("Sukces", "Pomyślnie edytowano studenta")
+            this.studentEditDialog = false
+          })
+          .catch(() => {
+            this.pushError("Błąd", "Coś poszło nie tak")
+          })
+    }
   },
 }
 </script>

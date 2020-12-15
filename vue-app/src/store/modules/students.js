@@ -1,4 +1,4 @@
-import {deleteStudentById, fetchAllStudents, postStudent} from "@/api/studentsApi";
+import {deleteStudentById, fetchAllStudents, patchStudent, postStudent} from "@/api/studentsApi";
 
 const state = () => ({
     all: [],
@@ -33,6 +33,12 @@ const actions = {
         await deleteStudentById(id).then(() => {
             commit('removeOneFromSubject', id)
         })
+    },
+
+    async updateOne({commit}, student){
+        await patchStudent(student._id, student).then(result => {
+            commit('updateOneStudent', result)
+        })
     }
 }
 
@@ -48,6 +54,11 @@ const mutations = {
     pushNewStudent(state, student) {
         state.all.push(student)
         state.studentsFromSubject.push(student)
+    },
+
+    updateOneStudent(state, student){
+        let updateIndex = state.studentsFromSubject.map(student => student._id).indexOf(student._id)
+        state.studentsFromSubject[updateIndex] = student
     },
 
     removeOneFromSubject(state, id){

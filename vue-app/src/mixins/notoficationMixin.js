@@ -16,6 +16,22 @@ export const notificationMixin = {
             });
         },
 
+        confirmActionWithArg(event, data, acceptAction, rejectAction) {
+            this.$confirm.require({
+                target: event.currentTarget,
+                message: 'Czy na pewno chcesz wykonać daną akcję?',
+                acceptLabel: "Tak",
+                rejectLabel: "Nie",
+                icon: 'pi pi-exclamation-triangle',
+                accept: () => {
+                    if (typeof acceptAction === "function") acceptAction(data);
+                },
+                reject: () => {
+                    if (typeof rejectAction === "function") rejectAction();
+                }
+            });
+        },
+
         pushSuccess(title, details, severity='success'){
             this.pushNotification(title, details, severity)
         },
