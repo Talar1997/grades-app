@@ -5,7 +5,7 @@
     <Divider/>
 
     <h3>Dodaj nowych studentów</h3>
-    <AddNewStudents v-bind:subject="subject"></AddNewStudents>
+    <AddNewStudents v-bind:subject="subject" v-bind:isSubjectActive="isSubjectActive"></AddNewStudents>
 
     <Divider/>
     <h3>Lista studentów</h3>
@@ -32,6 +32,7 @@ export default {
   },
 
   props: {
+    isSubjectActive: {required: true},
     subject: {required: true},
     students: {required: true}
   },

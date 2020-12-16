@@ -12,6 +12,7 @@
                 class="p-button-outlined"
                 icon="pi pi-check"
                 label="Dodaj"
+                v-bind:disabled="!isSubjectActive"
                 v-on:click="confirmAction($event, addStudents)">
         </Button>
       </div>
@@ -48,6 +49,7 @@ export default {
 
   props: {
     subject: {required: true},
+    isSubjectActive: {required: true},
   },
 
 

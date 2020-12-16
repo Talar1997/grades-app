@@ -5,52 +5,38 @@
       <Column bodyStyle="text-align:center" headerStyle="width:8rem">
         <template #body="slotProps">
           <Button class="p-button-rounded p-button-primary p-button-text" icon="pi pi-pencil"
-                  v-on:click="editStudent(slotProps.data)"/>
+                  v-on:click="editStudent(slotProps.data)"
+                  v-bind:disabled="!subject.active"/>
           <Button class="p-button-rounded p-button-danger p-button-text" icon="pi pi-trash"
-                  v-on:click="confirmActionWithArg($event, slotProps.data, deleteStudent)"/>
+                  v-on:click="confirmActionWithArg($event, slotProps.data, deleteStudent)"
+                  v-bind:disabled="!subject.active"/>
         </template>
       </Column>
     </DataTable>
     <ConfirmPopup></ConfirmPopup>
 
-    <!--    TODO: przenieść do osobnego komponentu-->
-    <Dialog v-model:visible="studentEditDialog"
-            class="p-fluid"
-            header="Edytuj dane"
-            v-bind:modal="true" v-bind:style="{width: '450px'}">
-      <div class="p-field">
-        <label for="name">Nazwa</label>
-        <InputText id="name" v-model="studentToUpdate.name" autofocus required="true"/>
-        <small v-if="submitted && !studentToUpdate.name" class="p-invalid">Nazwa przedmiotu jest wymagana</small>
-      </div>
-      <template #footer>
-        <Button class="p-button-text p-button-secondary" icon="pi pi-times" label="Anuluj" v-on:click="hideDialog"/>
-        <Button class="p-button" icon="pi pi-check" label="Zapisz" v-on:click="updateStudent"/>
-      </template>
-    </Dialog>
+    <EditStudentModal></EditStudentModal>
   </div>
 </template>
 
 <script>
-import InputText from "primevue/components/inputtext/InputText";
 import Button from "primevue/components/button/Button";
 import DataTable from "primevue/components/datatable/DataTable";
 import Column from "primevue/components/column/Column";
 import {notificationMixin} from "@/mixins/notificationMixin";
 import ConfirmPopup from "primevue/components/confirmpopup/ConfirmPopup";
 import {mapActions} from "vuex";
-import Dialog from "primevue/components/dialog/Dialog";
+import EditStudentModal from "@/components/Subject/Settings/EditStudentModal";
 
 export default {
   name: "StudentsDataTable",
 
   components: {
-    InputText,
+    EditStudentModal,
     Button,
     DataTable,
     Column,
     ConfirmPopup,
-    Dialog
   },
 
   props: {
@@ -73,7 +59,6 @@ export default {
   methods: {
     ...mapActions({
       removeStudent: 'students/removeStudent',
-      updateOne: 'students/updateOne'
     }),
 
 
@@ -90,24 +75,8 @@ export default {
     editStudent(student) {
       this.studentToUpdate._id = student._id;
       this.studentToUpdate.name = student.name;
-      this.studentEditDialog = true;
+      this.emitter.emit('edit-student-modal', this.studentToUpdate)
     },
-
-    hideDialog() {
-      this.studentEditDialog = false;
-    },
-
-    updateStudent() {
-      this.submitted = true
-      this.updateOne(this.studentToUpdate)
-          .then(() => {
-            this.pushSuccess("Sukces", "Pomyślnie edytowano studenta")
-            this.studentEditDialog = false
-          })
-          .catch(() => {
-            this.pushError("Błąd", "Coś poszło nie tak")
-          })
-    }
   },
 }
 </script>

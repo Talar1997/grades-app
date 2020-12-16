@@ -147,6 +147,7 @@ export default {
       this.students = []
       this.submitted = false
       this.gradeAddDialog = true
+      this.globalCategory = null
 
       students.forEach(student => {
         const temporaryStudent = {

@@ -7,7 +7,11 @@
       </h1>
     </div>
 
-<!--    TODO: zaimplementować ładowanie (żeby najpierw nie wyświetlało się 'brak danych'-->
+    <Message severity="error" v-if="!loadingSubject && !subject.active">
+      Ten przedmiot jest nieaktywny. Nie można w nim dodawać studentów, absencji ani ocen.
+    </Message>
+
+    <!--    TODO: zaimplementować ładowanie (żeby najpierw nie wyświetlało się 'brak danych'-->
     <div class=" p-grid">
       <div class="p-col-12 page-content p-shadow-2">
         <TabView class="tabview-custom">
@@ -16,22 +20,32 @@
               <i class="pi pi-check-square icon-spacing"></i>
               <span>Obecności</span>
             </template>
-            <AbsencesTab v-bind:students="students"></AbsencesTab>
+            <AbsencesTab v-bind:students="students"
+                         v-bind:isSubjectActive="subject.active"
+                         v-if="!isDataLoading()">
+            </AbsencesTab>
+            <SkeletonTable v-else></SkeletonTable>
           </TabPanel>
           <TabPanel v-bind:disabled="isDataLoading()">
             <template #header>
               <i class="pi pi-briefcase icon-spacing"></i>
               <span>Oceny</span>
             </template>
-            <GradesTab v-bind:students="students"></GradesTab>
+            <GradesTab
+                v-bind:students="students"
+                v-bind:isSubjectActive="subject.active">
+
+            </GradesTab>
           </TabPanel>
           <TabPanel v-bind:disabled="isDataLoading()">
             <template #header>
               <i class="pi pi-cog icon-spacing"></i>
               <span>Ustawienia</span>
             </template>
-            <SettingsTab v-bind:students="students"
-                         v-bind:subject="subject">
+            <SettingsTab
+                v-bind:isSubjectActive="subject.active"
+                v-bind:students="students"
+                v-bind:subject="subject">
             </SettingsTab>
           </TabPanel>
         </TabView>
@@ -50,12 +64,14 @@ import TabPanel from 'primevue/tabpanel';
 import GradesTab from "@/components/Subject/GradesTab";
 import AbsencesTab from "@/components/Subject/AbsencesTab";
 import SettingsTab from "@/components/Subject/SettingsTab";
-
+import Message from 'primevue/message';
+import SkeletonTable from "@/components/Subject/Absences/SkeletonTable";
 
 export default {
   name: 'SubjectDashboard',
 
   components: {
+    SkeletonTable,
     MainLayout,
     Skeleton,
     TabView,
@@ -63,6 +79,7 @@ export default {
     GradesTab,
     AbsencesTab,
     SettingsTab,
+    Message
   },
 
   data() {

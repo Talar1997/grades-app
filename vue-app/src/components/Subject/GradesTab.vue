@@ -30,12 +30,12 @@
         <Column bodyStyle="text-align:center" headerStyle="width:4rem">
           <template #body="slotProps">
             <Button class="p-button-rounded p-button-primary p-button-text" icon="pi pi-plus"
-                    v-on:click="addGradeModal(slotProps.data)"/>
+                    v-on:click="addGradeModal(slotProps.data)"  v-bind:disabled="!isSubjectActive"/>
           </template>
         </Column>
       </DataTable>
       <Button class="p-button-outlined" icon="pi pi-plus" label="Nowe oceny" style="float: right; margin-top: 10px"
-              v-on:click="addMultipleGradesModal(students)"/>
+              v-on:click="addMultipleGradesModal(students)" v-bind:disabled="!isSubjectActive"/>
       <div class="clear-both"></div>
     </div>
 
@@ -92,6 +92,7 @@ export default {
 
   props: {
     students: {required: true},
+    isSubjectActive: {required: true}
   },
 
   methods: {
