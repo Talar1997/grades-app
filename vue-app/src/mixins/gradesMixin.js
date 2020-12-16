@@ -8,6 +8,11 @@ export const gradesMixin = {
                 "Odpowiedź ustna",
             ],
             grades: [2, 2.5, 3, 3.5, 4, 4.5, 5],
+            severity: {
+                min: 5,
+                max: 100,
+                step: 5
+            },
         }
     },
 

@@ -29,7 +29,10 @@
         Waga:
         <Tag class="grade-tag" v-bind:severity="countSeverity(newGrade.severity)">{{ newGrade.severity }}</Tag>
       </label>
-      <Slider id="severity" v-model="newGrade.severity" required="true" v-bind:step="5"/>
+      <Slider id="severity" v-model="newGrade.severity" required="true"
+              v-bind:step="severity.step"
+              v-bind:min="severity.min"
+              v-bind:max="severity.max"/>
       <small v-if="submitted && !newGrade.severity" class="p-invalid">Wprowadzenie wagi jest wymagane</small>
     </div>
 

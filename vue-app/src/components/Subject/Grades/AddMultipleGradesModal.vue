@@ -24,13 +24,14 @@
           Waga:
           <Tag class="grade-tag" v-bind:severity="countSeverity(globalSeverity)">{{ globalSeverity }}</Tag>
         </label>
-        <Slider id="severity" v-model="globalSeverity" required="true" v-bind:step="5"/>
+        <Slider id="severity" v-model="globalSeverity" required="true"
+                v-bind:step="severity.step"
+                v-bind:min="severity.min"
+                v-bind:max="severity.max"/>
         <small v-if="submitted && !globalSeverity" class="p-invalid">Wprowadzenie wagi jest wymagane</small>
       </div>
 
       <label for="grade">Oceny</label>
-
-      <!--      TODO: pętla po każdym studencie-->
       <div class="p-field" v-for="student in students" v-bind:key="student._id">
         <div class="p-inputgroup">
           <span class="p-inputgroup-addon" style="width: 35%; justify-content: left">{{ student.name }}</span>

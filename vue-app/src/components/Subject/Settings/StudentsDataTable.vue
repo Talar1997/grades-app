@@ -83,18 +83,11 @@ export default {
 
 
 <style scoped>
+@import "../../../assets/css/tables.css";
+
 h3 {
   text-transform: uppercase;
 }
 
-.p-datatable-wrapper {
-  background: white !important;
-  border: none !important;
-
-}
-
-.table-wrapper {
-  width: 400px
-}
 
 </style>

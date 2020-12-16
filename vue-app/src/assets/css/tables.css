@@ -1,0 +1,15 @@
+.p-datatable .p-datatable-thead > tr > th{
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid #e9ecef !important;
+    background: #f8f9fa !important;
+    padding: 12px !important;
+    margin-top: 25px !important;
+}
+.p-datatable .p-datatable-tbody > tr > td {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid #e9ecef !important;
+}
