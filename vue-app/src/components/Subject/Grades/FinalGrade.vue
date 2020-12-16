@@ -4,8 +4,7 @@
     <span v-else class="p-text-bold">
       {{ finalGrade.toFixed(2) }}
       <span v-if="specialTreatment"
-            v-tooltip="'Ponieważ student posiada 100% obecności, jego najniższa ocena nie została wliczona do średniej'">
-        *
+            v-tooltip="'Ponieważ student posiada 100% obecności, jego najniższa ocena nie została wliczona do średniej'">*
       </span>
     </span>
   </div>
@@ -107,5 +106,5 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/css/grades.css";
+@import "../../../assets/css/grades.css";
 </style>

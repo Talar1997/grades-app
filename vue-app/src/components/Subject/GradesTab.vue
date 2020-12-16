@@ -33,10 +33,13 @@
                     v-on:click="addGradeModal(slotProps.data)"/>
           </template>
         </Column>
-
       </DataTable>
+      <Button class="p-button-outlined" icon="pi pi-plus" label="Nowe oceny" style="float: right; margin-top: 10px"
+              v-on:click="addMultipleGradesModal(students)"/>
+      <div class="clear-both"></div>
     </div>
 
+    <AddMultipleGradesModal></AddMultipleGradesModal>
     <AddGradeModal></AddGradeModal>
     <EditGradeModal></EditGradeModal>
   </div>
@@ -51,14 +54,16 @@ import Tag from "primevue/components/tag/Tag";
 import Tooltip from 'primevue/tooltip';
 import {notificationMixin} from "@/mixins/notificationMixin";
 import {gradesMixin} from "@/mixins/gradesMixin";
-import AddGradeModal from "@/components/Subject/AddGradeModal";
-import EditGradeModal from "@/components/Subject/EditGradeModal";
-import FinalGrade from "@/components/Subject/FinalGrade";
+import AddGradeModal from "@/components/Subject/Grades/AddGradeModal";
+import EditGradeModal from "@/components/Subject/Grades/EditGradeModal";
+import FinalGrade from "@/components/Subject/Grades/FinalGrade";
+import AddMultipleGradesModal from "@/components/Subject/Grades/AddMultipleGradesModal";
 
 export default {
   name: "GradesTab",
 
   components: {
+    AddMultipleGradesModal,
     FinalGrade,
     EditGradeModal,
     AddGradeModal,
@@ -94,6 +99,10 @@ export default {
       this.emitter.emit('add-grade-modal', student)
     },
 
+    addMultipleGradesModal(students){
+      this.emitter.emit('add-multiple-grades-modal', students)
+    },
+
     editGradeModal(student, grade) {
       this.emitter.emit('edit-grade-modal', {student, grade})
     },
@@ -103,4 +112,5 @@ export default {
 
 <style scoped>
 @import "../../assets/css/grades.css";
+@import "../../assets/css/cards.css";
 </style>

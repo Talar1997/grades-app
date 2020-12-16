@@ -7,6 +7,7 @@
       </h1>
     </div>
 
+<!--    TODO: zaimplementować ładowanie (żeby najpierw nie wyświetlało się 'brak danych'-->
     <div class=" p-grid">
       <div class="p-col-12 page-content p-shadow-2">
         <TabView class="tabview-custom">

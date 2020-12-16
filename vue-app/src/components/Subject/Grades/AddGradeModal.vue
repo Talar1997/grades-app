@@ -76,13 +76,6 @@ export default {
         severity: 50,
         category: null,
       },
-      categories: [
-        "Sprawdzian",
-        "Kartkówka",
-        "Kolokwium",
-        "Odpowiedź ustna",
-      ],
-      grades: [2, 3, 4, 5],
     }
   },
 
@@ -99,7 +92,7 @@ export default {
     postGrade() {
       this.submitted = true
       if (this.isValid(this.newGrade)) {
-        console.log(this.newGrade)
+
         let updatedStudent = {
           _id: this.dialogStudent._id,
           grades: [...this.dialogStudent.grades]

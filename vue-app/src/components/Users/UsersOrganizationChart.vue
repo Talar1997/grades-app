@@ -3,7 +3,8 @@
                      class="company"
                      selectionMode="single"
                      v-bind:collapsible="true"
-                     v-bind:value="chartData">
+                     v-bind:value="chartData"
+                     v-on:node-select="onNodeSelect">
     <template #person="slotProps">
       <div class="node-content">
         <Avatar class="p-mr-2" icon="pi pi-user" shape="circle"/>
@@ -69,8 +70,10 @@ export default {
         usersSubjects.forEach(subject => {
           const newChildren = {
             key: subject._id,
+            type: 'subject',
             data: {label: subject.name},
             selectable: false,
+            styleClass: 'selectable-node'
           }
           childrenSubjects.push(newChildren)
         })
@@ -86,6 +89,13 @@ export default {
         if (owner.children.length !== 0) this.chartData.children.push(owner)
       })
     },
+
+    onNodeSelect(node) {
+      if(node.type === 'subject'){
+        const id = node.key;
+        this.$router.push({ name: 'Subject', params: { id }})
+      }
+    },
   },
 
   watch: {
@@ -99,6 +109,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+  .selectable-node{
+    cursor: pointer;
+  }
 </style>

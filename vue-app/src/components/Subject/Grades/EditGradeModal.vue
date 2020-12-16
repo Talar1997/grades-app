@@ -119,5 +119,5 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/css/grades.css";
+@import "../../../assets/css/grades.css";
 </style>

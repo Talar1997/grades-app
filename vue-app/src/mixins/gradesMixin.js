@@ -1,4 +1,16 @@
 export const gradesMixin = {
+    data(){
+        return{
+            categories: [
+                "Sprawdzian",
+                "Kartkówka",
+                "Kolokwium",
+                "Odpowiedź ustna",
+            ],
+            grades: [2, 3, 4, 5],
+        }
+    },
+
     methods: {
         countSeverity(severity) {
             if (this.isBetween(severity, 0, 20)) return 'primary'
