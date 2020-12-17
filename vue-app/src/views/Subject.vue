@@ -22,6 +22,7 @@
             </template>
             <AbsencesTab v-bind:students="students"
                          v-bind:isSubjectActive="subject.active"
+                         v-bind:subject="subject"
                          v-if="!isDataLoading()">
             </AbsencesTab>
             <SkeletonTable v-else></SkeletonTable>

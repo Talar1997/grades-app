@@ -36,6 +36,7 @@
 import Card from "primevue/components/card/Card";
 import Button from "primevue/components/button/Button";
 import BlockUI from 'primevue/blockui';
+import {dateMixin} from "@/mixins/dateMixin";
 
 
 export default {
@@ -47,6 +48,10 @@ export default {
     BlockUI
   },
 
+  mixins:[
+    dateMixin
+  ],
+
   data() {
     return {
       isHovering: false,
@@ -57,25 +62,6 @@ export default {
     subject: null,
   },
 
-  methods: {
-    toClearDate(date) {
-      let newDate = new Date(date);
-      return `${newDate.getDate()}/${newDate.getUTCMonth() + 1}/${newDate.getFullYear()}`
-    },
-
-    toClearHour(date) {
-      let newDate = new Date(date);
-      let minutes = newDate.getUTCMinutes()
-      let minutesString = minutes < 10 ? `0${minutes}` : minutes;
-      return `${newDate.getUTCHours()}:${minutesString}`
-    },
-
-    toClearDayName(date) {
-      let newDate = new Date(date);
-      var days = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
-      return days[newDate.getDay()] + ", godzina: " + this.toClearHour(date);
-    },
-  }
 }
 </script>
 

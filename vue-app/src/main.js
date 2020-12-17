@@ -6,9 +6,10 @@ import router from './router'
 import {routerMiddleware} from "@/router/router-middleware"
 import 'primeflex/primeflex.css'
 import mitt from "mitt"
-import PrimeVue from 'primevue/config';
-import ConfirmationService from 'primevue/confirmationservice';
-import ToastService from 'primevue/toastservice';
+import PrimeVue from 'primevue/config'
+import ConfirmationService from 'primevue/confirmationservice'
+import ToastService from 'primevue/toastservice'
+
 
 const app = createApp(App)
 const emitter = mitt()

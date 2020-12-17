@@ -1,4 +1,5 @@
-.p-datatable .p-datatable-thead > tr > th{
+.p-datatable .p-datatable-thead > tr > th
+{
     border-top: none !important;
     border-left: none !important;
     border-right: none !important;
@@ -7,7 +8,9 @@
     padding: 12px !important;
     margin-top: 25px !important;
 }
-.p-datatable .p-datatable-tbody > tr > td {
+
+.p-datatable .p-datatable-tbody > tr > td,
+.p-paginator, .p-datatable-header{
     border-top: none !important;
     border-left: none !important;
     border-right: none !important;

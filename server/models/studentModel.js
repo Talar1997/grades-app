@@ -13,7 +13,6 @@ const studentSchema = new mongoose.Schema({
         ref: 'Subject'
     },
 
-    // how to find one grade and change it?
     grades: [{
         category: {
             type: String,
