@@ -27,6 +27,14 @@ const studentSchema = new mongoose.Schema({
     }],
 
     absences: [{
+        isJustified:{
+            type: Boolean,
+            default: false
+        },
+        isAbsence: {
+            type: Boolean,
+            default: true
+        },
         date: {
             type: Date,
             default: new Date()

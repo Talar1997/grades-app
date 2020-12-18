@@ -11,22 +11,9 @@
               v-bind:key="weekNumber">
         <template #body="row">
           <span v-if="isAbsenceInWeek(row.data.absences, weekNumber)">
-            <Tag class="grade-tag pointer"
-                 severity="danger"
-                 v-on:click="editAbsence(getAbsenceData(row.data.absences, weekNumber))">
-                  NB
-            </Tag>
+            <Absence v-bind:absence="getAbsenceData(row.data.absences, weekNumber)" v-bind:student="row.data"></Absence>
           </span>
-          <span v-else>
-
-          </span>
-        </template>
-      </Column>
-
-      <Column bodyStyle="text-align:center" headerStyle="width:4rem">
-        <template #body="slotProps">
-          <Button class="p-button-rounded p-button-primary p-button-text" icon="pi pi-plus"
-                  v-on:click="slotProps" v-bind:disabled="!isSubjectActive"/>
+          <span v-else></span>
         </template>
       </Column>
     </DataTable>
@@ -34,7 +21,9 @@
             style="float: right; margin-top: 10px"
             v-on:click="manageAbsences()" v-bind:disabled="!isSubjectActive"/>
     <div class="clear-both"></div>
+
     <AddMultipleAbsencesModal></AddMultipleAbsencesModal>
+    <EditAbsenceModal></EditAbsenceModal>
   </div>
 </template>
 
@@ -44,8 +33,9 @@ import DataTable from "primevue/components/datatable/DataTable";
 import Column from "primevue/components/column/Column";
 import Button from "primevue/components/button/Button";
 import {dateMixin} from "@/mixins/dateMixin";
-import Tag from "primevue/components/tag/Tag";
 import AddMultipleAbsencesModal from "@/components/Subject/Absences/AddMultipleAbsencesModal";
+import Absence from "@/components/Subject/Absences/Absence";
+import EditAbsenceModal from "@/components/Subject/Absences/EditAbsenceModal";
 
 export default {
   name: "AbsencesTab",
@@ -55,7 +45,8 @@ export default {
     DataTable,
     Column,
     Button,
-    Tag,
+    Absence,
+    EditAbsenceModal
   },
 
   props: {
@@ -100,6 +91,7 @@ export default {
 
       if (absenceList.length > 0) {
         absenceList.forEach(absence => {
+
           if (this.compareDates(absence.date, currentDate)) result = absence
         })
       }
@@ -111,13 +103,6 @@ export default {
       console.log(absence._id)
     }
   },
-
-  mounted() {
-    setTimeout(() => {
-      this.allStudents = [...this.students]
-      this.allStudents.newAbsences = {}
-    }, 500)
-  }
 }
 </script>
 

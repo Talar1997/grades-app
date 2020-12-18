@@ -40,7 +40,12 @@ export default {
 
   methods: {
     haveAnyAbsences() {
-      return this.student.absences.length !== 0
+      let haveNotJustifiedAbsence = false
+      this.student.absences.forEach(absence => {
+        if(!absence.isAbsence && !absence.isJustified) haveNotJustifiedAbsence = true
+      })
+
+      return haveNotJustifiedAbsence
     },
 
     findLessValuable() {
@@ -58,6 +63,7 @@ export default {
 
     //Jeżeli student ma 100% obecność na zajęciach anuluje się jedną kartkówkę z której miał najsłabszą ocenę.
     computeFinalGrade() {
+      this.specialTreatment = false
       let sumOfSeverity = 0
       let sumOfGradesTimesSeverity = 0
       let lessValuable = this.findLessValuable()
