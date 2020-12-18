@@ -29,7 +29,7 @@ export default {
     },
 
     computeSeverity() {
-      if (this.absence.isJustified) return 'success'
+      if (this.absence.isJustified && !this.absence.isAbsence) return 'success'
       if (!this.absence.isAbsence) return 'danger'
       else return 'primary'
     },

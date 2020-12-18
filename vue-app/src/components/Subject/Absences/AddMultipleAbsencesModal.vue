@@ -94,38 +94,49 @@ export default {
     postAbsences() {
       let pushedAbsences = 0
       this.submitted = true
+      let isAnyDuplicateOccurred = false
 
       if (!this.isValid()) return
 
       this.students.forEach(student => {
         if (typeof student.newAbsence.value !== 'undefined') {
-          pushedAbsences++
-
+          let duplicate = false
           const newAbsence = {
             isAbsence: student.newAbsence.value,
             date: moment(this.globalDate.value).toISOString()
           }
 
-          //TODO: check for duplicated dates in absences array and replace it by new one
-          student.absences.push(newAbsence)
+          student.absences.forEach((absence) =>{
+            if(this.compareDates(absence.date, newAbsence.date)){
+              duplicate = true
+              isAnyDuplicateOccurred = true
+            }
+          })
 
-          const updatedStudent = {
-            _id: student._id,
-            absences: [...student.absences]
+          if(!duplicate) {
+            pushedAbsences++
+            student.absences.push(newAbsence)
+
+            const updatedStudent = {
+              _id: student._id,
+              absences: [...student.absences]
+            }
+
+            this.updateStudent(updatedStudent)
+                .catch(() => {
+                  this.pushError("Błąd", "Coś poszło nie tak!")
+                })
           }
-
-          this.updateStudent(updatedStudent)
-              .catch(() => {
-                this.pushError("Błąd", "Coś poszło nie tak!")
-              })
         }
       })
+
+      if(isAnyDuplicateOccurred){
+        this.pushInfo("Informacja", "Niektórzy studenci posiadają już obecnośc w tym dniu. Zmodyfikuj ją")
+      }
 
       if (pushedAbsences > 0) {
         this.pushSuccess("Sukces", "Pomyślnie dodano obecności")
         this.hideDialog()
-      } else {
-        this.pushInfo("Informacja", "Nie zaznaczono żadnego pola")
       }
     },
 

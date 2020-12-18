@@ -108,10 +108,12 @@ export default {
         active: this.updatedSubject.active,
       }
 
-      //TODO: zrobić, żeby mutacja nazwy była widoczna bez odświeżania strony
       this.updateStoreSubject(patchedObject)
           .then(() => {
-            this.pushSuccess("Sukces", "Pomyślnie edytowano przedmiot. Niektóre zmiany mogą być widoczne dopiero po odświezeniu strony")
+            this.pushSuccess("Sukces", "Pomyślnie edytowano przedmiot. Strona odświeży się ponownie")
+            setTimeout(()=>{
+              this.$router.go(this.$router.currentRoute)
+            }, 1000)
           })
           .catch(() => {
             this.pushError("Błąd", "Coś poszło nie tak.")

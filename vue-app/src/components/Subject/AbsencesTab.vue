@@ -1,29 +1,33 @@
 <template>
   <div>
-    <EmptyTab v-if="students.length === 0"
+    <EmptyTab v-if="students.length === 0 & loadedData"
               message="Brak studentów przypisanych do przedmiotu. Dodaj ich w zakładce 'Ustawienia'"
               title="Brak danych!">
     </EmptyTab>
-    <DataTable v-else id="studentsTable" dataKey="_id" v-bind:value="students">
-      <Column field="name" header="Imie i nazwisko" headerStyle="width:15%"></Column>
+    <div v-else>
+      <DataTable id="studentsTable" dataKey="_id" v-bind:value="students">
+        <Column field="name" header="Imie i nazwisko" headerStyle="width:15%"></Column>
 
-      <Column field="absences" v-bind:header="weekLabel(weekNumber)" v-for="weekNumber in weeks"
-              v-bind:key="weekNumber">
-        <template #body="row">
+        <Column field="absences" v-bind:header="weekLabel(weekNumber)" v-for="weekNumber in weeks"
+                v-bind:key="weekNumber">
+          <template #body="row">
           <span v-if="isAbsenceInWeek(row.data.absences, weekNumber)">
             <Absence v-bind:absence="getAbsenceData(row.data.absences, weekNumber)" v-bind:student="row.data"></Absence>
           </span>
-          <span v-else></span>
-        </template>
-      </Column>
-    </DataTable>
-    <Button class="p-button-outlined" icon="pi pi-plus" label="Zarządzaj obecnościami"
-            style="float: right; margin-top: 10px"
-            v-on:click="manageAbsences()" v-bind:disabled="!isSubjectActive"/>
-    <div class="clear-both"></div>
+            <span v-else></span>
+          </template>
+        </Column>
+      </DataTable>
+
+      <Button class="p-button-outlined" icon="pi pi-plus" label="Zarządzaj obecnościami"
+              style="float: right; margin-top: 10px"
+              v-on:click="manageAbsences()" v-bind:disabled="!isSubjectActive"/>
+      <div class="clear-both"></div>
+    </div>
 
     <AddMultipleAbsencesModal></AddMultipleAbsencesModal>
     <EditAbsenceModal></EditAbsenceModal>
+
   </div>
 </template>
 
@@ -63,7 +67,8 @@ export default {
     return {
       weeks: 20,
       manageMode: false,
-      allStudents: []
+      allStudents: [],
+      loadedData: false
     }
   },
 
@@ -98,11 +103,13 @@ export default {
 
       return result
     },
-
-    editAbsence(absence) {
-      console.log(absence._id)
-    }
   },
+
+  mounted() {
+    setTimeout(()=>{
+      this.loadedData = true
+    }, 100)
+  }
 }
 </script>
 

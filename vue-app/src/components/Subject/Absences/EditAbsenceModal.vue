@@ -63,8 +63,8 @@ export default {
     SelectButton
   },
 
-  mixins:[
-      notificationMixin
+  mixins: [
+    notificationMixin
   ],
 
   data() {
@@ -92,9 +92,11 @@ export default {
 
     hideDialog() {
       this.absenceEditModal = false
+      this.absence = null
+      this.originalAbsence = null
+      this.dialogStudent = null
     },
 
-    //fixme: update zmienia też inne absencje xD
     updateAbsence() {
       let newAbsences = [...this.dialogStudent.absences]
       let removeIndex = newAbsences.map(absence => absence._id).indexOf(this.absence._id)
@@ -106,7 +108,6 @@ export default {
         isJustified: this.absence.isJustified.value,
         date: this.originalAbsence.date
       }
-
       newAbsences.push(newAbsence)
 
       const studentToUpdate = {
@@ -122,7 +123,6 @@ export default {
           .catch(() => {
             this.pushError("Błąd", "Coś poszło nie tak")
           })
-
     }
   },
 
@@ -135,7 +135,7 @@ export default {
       const justifiedName = !absence.absence.isJustified ? 'Nie' : 'Tak'
 
       this.absence = {
-        id: absence.absence._id,
+        _id: absence.absence._id,
         isAbsence: {name: absenceName, value: absence.absence.isAbsence},
         isJustified: {name: justifiedName, value: absence.absence.isJustified},
         date: moment(absence.absence.date).format('DD/MM/YYYY')
