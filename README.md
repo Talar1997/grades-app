@@ -1,5 +1,8 @@
 # Grades
 
+## Postman docs
+https://documenter.getpostman.com/view/9501404/TWDZJGjq
+
 ## Założenia
 
 Napisz aplikację dziennika lekcyjnego. Aplikacja składa się z dwóch modułów:
